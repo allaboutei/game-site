@@ -190,6 +190,9 @@ ob_start();
                     ?>
                 </div>
             </div>
+            <div class="recentMatch">
+                <p>The recent matches and results will be displayed here</p>
+            </div>
             <br><br>
         </div>
         <div class="footer">
