@@ -23,7 +23,6 @@ td {
   max-width: 100vw;
   height: 100vh;
   position: relative;
-  font-family: 'Times New Roman', Times, serif;
 }
 /* header css */
 .header {
@@ -597,6 +596,16 @@ td {
   justify-content: center;
   align-items: center;
 }
+
+.recentMatch{
+  display: flex;
+  flex-direction: column;
+}
+.recentCard{
+  display: flex;
+  flex-direction: row;
+}
+
 /* Match page */
 /* user page */
 .memberContainer {
@@ -768,17 +777,16 @@ body::-webkit-scrollbar {
 .deleted {
   color: rgba(255, 0, 0, 0.738);
 }
-.heading{
+.headings{
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
   width: 100%;
-  margin-left: 3%;
   display: flex;
-  flex-direction: row;
-  justify-content: left;
 }
 .heading h1{
   font-family: Arial, Helvetica, sans-serif;
   font-size: 75;
-  font-weight: bold;
+  font-weight: bolder;
   }
 
 @keyframes rotateIcon {

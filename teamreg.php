@@ -150,7 +150,9 @@ isset($_SESSION['role']) ? $role = $_SESSION['role'] : $role = "Not Logged In";
 
             <div class="feed">
 
-
+                <div class="headings">
+        <h1>TEAMS</h1>
+    </div>
                 <div class="teamC">
                     <?php while ($row = $result->fetch_assoc()) { ?>
 

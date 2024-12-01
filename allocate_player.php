@@ -5,6 +5,7 @@ include_once "config/regdbconnect.php";
 session_start();
 ob_start();
 ?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,6 +15,7 @@ ob_start();
     <script src="https://kit.fontawesome.com/cf47e7251d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -109,17 +111,7 @@ ob_start();
                                     <?php
                                     ?>
                                     <h6><?php echo $row['playerName']; ?>
-                                        <?php
-                                        //  $sqlCheck = "SELECT u.userName 
-                                        //  FROM tbl_user u
-                                        //  JOIN tbl_captain c ON u.userId=c.userId
-                                        //  WHERE c.teamId='$id'";
-                                        //          $resultCheck = $conn->query($sqlCheck);
-                                        //          if ($resultCheck->num_rows > 0) {
-                                        //              $rowCheck = $resultCheck->fetch_assoc();
-                                        //          }
-                                        // echo  isset($rowCheck['userName'])
-                                        ?>
+
                                     </h6>
                                     <h6><?php echo $row['playerIgn']; ?></h6>
                                     <h6>
@@ -191,7 +183,34 @@ ob_start();
                 </div>
             </div>
             <div class="recentMatch">
-                <p>The recent matches and results will be displayed here</p>
+                <h3>Recent Matches</h3>
+                <img class="whImg" src="uploadfiles/<?php echo $rowt['teamImage']; ?>" alt="">
+
+                <?php $id = $rowt['teamId'];
+
+                $sqlRecent = "SELECT tm.matchId,tr.team1score FROM tbl_match tm JOIN tbl_result tr ON tm.matchId=tr.matchId 
+                WHERE tm.team1Name='$id' OR tm.team2Name='$id' ";
+                $resultRecent = $conn->query($sqlRecent);
+                if($resultRecent->num_rows > 0){
+                    while ($rowRecent = $resultRecent->fetch_assoc()){
+?>
+<div class="recentCard">
+                        <?php
+                        echo $rowRecent['matchId'];
+                        // Conflict Here on not distinguishing the score of team
+                        echo $rowRecent['team1score'];
+                        ?>
+                    </div>
+
+<?php
+                    }
+
+                }
+                 
+                    
+                ?>
+                    
+
             </div>
             <br><br>
         </div>
@@ -201,4 +220,5 @@ ob_start();
     </div>
     <script src="script.js"></script>
 </body>
+
 </html>

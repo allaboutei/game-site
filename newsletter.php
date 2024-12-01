@@ -99,7 +99,7 @@ ob_start(); ?>
                 </div>
 
                 <div class="feed">
-<div class="heading">
+<div class="headings">
     <h1>NEWS</h1>
 </div>
                     <div class="newsContainer">

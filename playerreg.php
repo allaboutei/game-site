@@ -33,14 +33,7 @@ ob_start();
                 <i class="fa-solid fa-scroll"></i>
             </div>
             <?php
-            if (!isset($_SESSION['userRoleId'])) {
-                echo "<h3>Login to register as a player</h3>
-                      <a href='login.php' class='btn btn-success'>Go To Login</a>";
-            } elseif ($_SESSION['userRoleId'] == 0) {
-                echo "<h3>Ready to compete in the matches? Fill out the form Now!</h3>";
-            } else {
-                echo "<h3>Welcome Admin!</h3>";
-            }
+            
             // Insert player data
             // Insert or Update player data
             if (isset($_POST["btnSubmit"])) {
@@ -120,6 +113,7 @@ ob_start();
                 $rowEdit = $resultEdit->fetch_assoc();
             }
             ?>
+            
             <div class="content">
                 <div class="register heading">
                     <h4>Register Here</h4>
@@ -183,6 +177,19 @@ ob_start();
                 ?>
             </div>
             <div class="feed">
+                <?php 
+                if (!isset($_SESSION['userRoleId'])) {
+                    echo "<h3>Login to register as a player</h3>
+                          <a href='login.php' class='btn btn-success'>Go To Login</a>";
+                } elseif ($_SESSION['userRoleId'] == 0) {
+                    echo "<h3>Ready to compete in the matches? Fill out the form Now!</h3>";
+                } else {
+                    echo "<h3>Welcome Admin!</h3>";
+                }
+                ?>
+            <div class="headings">
+                    <h1>PLAYERS</h1>
+                </div>
                 <strong>Registered Players</strong>
                 <table>
                     <tr>

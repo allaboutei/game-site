@@ -24,7 +24,9 @@ ob_start();
             ?>
         </div>
         <div class="main">
-           
+
+
+       
         </div>
         <div class="footer">
             <?php

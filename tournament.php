@@ -102,6 +102,9 @@ ob_start();
 
             </div>
             <div class="feed">
+            <div class="headings">
+    <h1>TOURNAMENTS</h1>
+</div>
                 <div class="tourContainer">
                     <?php
                     $sql = "SELECT * FROM tbl_tour";

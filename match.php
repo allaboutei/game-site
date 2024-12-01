@@ -213,6 +213,9 @@ ob_start();
 
 
             <div class="feed">
+                <div class="headings">
+                    <h1>MATCHES</h1>
+                </div>
                 <h4>Upcomming Matches</h4>
                 <?php
                 $sql = "SELECT * FROM tbl_match WHERE status='0'";
