@@ -184,32 +184,128 @@ ob_start();
             </div>
             <div class="recentMatch">
                 <h3>Recent Matches</h3>
-                <img class="whImg" src="uploadfiles/<?php echo $rowt['teamImage']; ?>" alt="">
+                <div class="recentCard">
+                    <h4>#</h4>
+                    <h4>Date</h4>
+                    <h4>Tournament</h4>
+                    <h4>Title</h4>
+                    <h4>Format</h4>
+                    <div class="recentCardScore"><h4>Result</h4></div>
+                    
+                    <h4>W/L/D</h4>
+
+                </div>
+
+
+
+
+
+
+
+
+
 
                 <?php $id = $rowt['teamId'];
+                $number = 0;
 
-                $sqlRecent = "SELECT tm.matchId,tr.team1score FROM tbl_match tm JOIN tbl_result tr ON tm.matchId=tr.matchId 
-                WHERE tm.team1Name='$id' OR tm.team2Name='$id' ";
+                $sqlRecent = "SELECT 
+    m.matchId AS matchId,
+    m.tourId AS tourId,
+    t.tourName AS tourName,
+    m.matchTitle AS matchTitle,
+    f.formatName AS formatName,
+    m.matchDate,
+    m.team1Name,
+    m.team2Name,
+    r.team1score,
+    r.team2score,
+    CASE 
+        WHEN m.team1Name = $id THEN r.team1score
+        WHEN m.team2Name = $id THEN r.team2score
+    END AS teamScore,
+    CASE 
+        WHEN m.team1Name = $id THEN r.team2score
+        WHEN m.team2Name = $id THEN r.team1score
+    END AS opponentScore,
+    CASE 
+        WHEN m.team1Name = $id  THEN m.team2Name
+        WHEN m.team2Name = $id  THEN m.team1Name
+    END AS opponentId
+FROM 
+    tbl_match m
+JOIN 
+    tbl_result r ON m.matchId = r.matchId
+JOIN tbl_tour t ON m.tourId=t.tourId
+JOIN tbl_format f ON m.formatId=f.formatId
+WHERE 
+    m.team1Name = $id  OR m.team2Name = $id 
+    AND m.status='1'
+    ORDER BY m.matchId DESC";
+
                 $resultRecent = $conn->query($sqlRecent);
-                if($resultRecent->num_rows > 0){
-                    while ($rowRecent = $resultRecent->fetch_assoc()){
-?>
-<div class="recentCard">
-                        <?php
-                        echo $rowRecent['matchId'];
-                        // Conflict Here on not distinguishing the score of team
-                        echo $rowRecent['team1score'];
-                        ?>
-                    </div>
-
-<?php
-                    }
-
-                }
-                 
-                    
+                if ($resultRecent->num_rows > 0) {
+                    while ($rowRecent = $resultRecent->fetch_assoc()) {
                 ?>
-                    
+                        <div class="recentCard">
+                            <span><?php $number = $number + 1;
+                                    echo $number;
+                                    ?></span>
+                            <span><?php
+                                    echo $rowRecent['matchDate'];
+                                    ?></span>
+                            <span>
+                                <?php
+                                echo $rowRecent['tourName'];
+                                ?>
+                            </span>
+                            <span><?php
+                                    echo $rowRecent['matchTitle'];
+                                    ?></span>
+                            <span><?php
+                                    echo $rowRecent['formatName'];
+                                    ?></span>
+
+                            <div class="recentCardScore">
+
+                                <?php
+                                $teamscore = $rowRecent['teamScore'];
+                                $opponentscore = $rowRecent['opponentScore'];
+
+                                echo $teamscore . "  :  " . $opponentscore;
+
+
+                                $opponentid = $rowRecent['opponentId'];
+                                $sql = "SELECT teamImage FROM tbl_team WHERE teamId= '$opponentid'";
+                                $result = $conn->query($sql);
+                                $row = $result->fetch_assoc();
+
+                                ?>
+                                <a href="allocate_player.php?id=<?php echo $opponentid; ?>"><img class="wh70" src="uploadfiles/<?php echo $row['teamImage'] ?>" alt=""></a>
+                            </div>
+
+                            <span>
+                                <?php
+                                if ($teamscore > $opponentscore) {
+
+                                    echo "WIN";
+                                } elseif ($teamscore == $opponentscore) {
+                                    echo "DRAW";
+                                } else {
+                                    echo "LOSS";
+                                }
+
+                                ?>
+                            </span>
+
+
+                        </div>
+                <?php
+                    }
+                }
+
+
+                ?>
+
 
             </div>
             <br><br>

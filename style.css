@@ -1,9 +1,12 @@
-*{
+@import url('https://fonts.googleapis.com/css2?family=Abel&family=Agdasima:wght@400;700&family=Arsenal+SC&family=Forum&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Rationale&display=swap');
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  /* font-family: "Forum", serif; */
+font-family: Libre;
+font-size: large;
 }
+
 
 table,
 th,
@@ -14,7 +17,6 @@ td {
   border: 3px solid darkgreen;
   border-collapse: collapse;
 }
-
 
 .container {
   color: white;
@@ -52,8 +54,6 @@ td {
   align-items: center;
   z-index: 2;
   position: sticky;
-
-  
 }
 .navibar a {
   color: white;
@@ -84,7 +84,7 @@ td {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  background-color: rgb(15,25,35);
+  background-color: rgb(15, 25, 35);
   margin-bottom: 50px;
 }
 .register {
@@ -103,7 +103,6 @@ td {
 }
 .labelTag {
   font-size: 19px;
-  font-family: Arial, Helvetica, sans-serif;
 }
 .uploadTag {
   align-content: center;
@@ -279,7 +278,7 @@ td {
   justify-content: center;
   flex-wrap: wrap;
   width: 100%;
-  background-color: rgb(236,232,225);
+  background-color: rgb(236, 232, 225);
   padding-top: 20px;
 }
 .newsCard {
@@ -597,15 +596,34 @@ td {
   align-items: center;
 }
 
-.recentMatch{
+.recentMatch {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 90%;
+  background-color: rgb(236, 232, 225);
 }
-.recentCard{
+.recentCard {
+  padding: 10px;
+  margin: 20px 10px;
+  background-color: rgb(15, 25, 35);
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 90%;
 }
-
+.recentCard span,
+.recentCard h4 {
+  width: 10%;
+}
+.recentCardScore {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 20%;
+}
 /* Match page */
 /* user page */
 .memberContainer {
@@ -744,6 +762,10 @@ td {
   width: 100px;
   height: 100px;
 }
+.wh70 {
+  width: 70px;
+  height: 70px;
+}
 .mg0Auto {
   margin: 0 auto;
 }
@@ -777,17 +799,14 @@ body::-webkit-scrollbar {
 .deleted {
   color: rgba(255, 0, 0, 0.738);
 }
-.headings{
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold;
+.headings {
+  font-weight: bolder;
   width: 100%;
   display: flex;
 }
-.heading h1{
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 75;
+.heading h1 {
   font-weight: bolder;
-  }
+}
 
 @keyframes rotateIcon {
   0% {

@@ -89,26 +89,44 @@ ob_start();
                 if (isset($_POST['btnScoreUpdate'])) {
 
                     $matchid = $_POST['matchid'];
+                    $team1id = $_POST['team1id'];
+                    $team2id = $_POST['team2id'];
                     $team1score = $_POST['team1Score'];
                     $team2score = $_POST['team2Score'];
 
 
-
-                    $sql = "UPDATE tbl_result SET team1score='$team1score',team2score='$team2score' WHERE matchId=' $matchid'";
-                    if ($conn->query($sql)) {
-
-                        header("location:match.php");
+                    $result = ($team1score == $team2score) ? 0 : 1;
+                    if ($team1score > $team2score) {
+                        $winner = $team1id;
+                    } elseif ($team1score == $team2score) {
+                        $winner = 0;
                     } else {
-                        echo "ERROR";
+                        $winner = $team2id;
+                    }
+
+                    $sql = "UPDATE tbl_result 
+                    SET team1score='$team1score', team2score='$team2score', result='$result', winner='$winner' 
+                    WHERE matchId='$matchid'";
+
+                    if ($conn->query($sql)) {
+                        header("Location: match.php");
+                        exit();
+                    } else {
+                        echo "ERROR: " . $conn->error;
                     }
                 }
                 if (isset($_POST['btnComplete'])) {
                     $matchid = $_POST['matchid'];
+                    $team1id = $_POST['team1id'];
+                    $team2id = $_POST['team2id'];
                     $sql = "UPDATE tbl_match SET status='1' WHERE matchId='$matchid' ";
                     if ($conn->query($sql)) {
-                        $sql1 = "INSERT INTO tbl_result (id,matchId,team1score,team2score) VALUES (NULL,'$matchid',NULL,NULL)";
-                        $conn->query($sql1);
-                        header("location:match.php");
+                        $sql1 = "INSERT INTO tbl_result (id,matchId,team1id,team1score,team2id,team2score,result,winner) VALUES (NULL,'$matchid','$team1id',NULL,'$team2id',NULL,NULL,NULL)";
+                        if ($conn->query($sql1) == TRUE) {
+                            header("location:match.php");
+                        } else {
+                            echo "ERROR";
+                        }
                     } else {
                         echo "ERROR";
                     }
@@ -285,6 +303,8 @@ ob_start();
                                     ?>
                                             <form action="#" method="POST">
                                                 <input name="matchid" type="hidden" value="<?php echo $row['matchId'];  ?>">
+                                                <input name="team1id" type="hidden" value="<?php echo  $team1name  ?>">
+                                                <input name="team2id" type="hidden" value="<?php echo $team2name  ?>">
                                                 <input name="btnComplete" class="btn btn-success" type="submit" value="Mark As Completed">
                                             </form>
                                     <?php
@@ -322,10 +342,11 @@ ob_start();
                 <div class="matchContainer">
                     <h4>Completed Matches</h4>
                     <?php
+
                     $sql = "SELECT * FROM tbl_match WHERE status='1' ORDER BY matchId DESC";
                     $result = $conn->query($sql);
 
-                    if ($result->num_rows < 0) {
+                    if ($result->num_rows == 0) {
                         echo "No Completed match at this time";
                     } else {
 
@@ -380,7 +401,7 @@ ob_start();
                                     <?php
                                     } elseif ($_SESSION['userRoleId'] == 1) {
 
-                                        $ssql = "SELECT team1score,team2score FROM tbl_result WHERE matchId='$matchid'";
+                                        $ssql = "SELECT * FROM tbl_result WHERE matchId='$matchid'";
                                         $r = $conn->query($ssql);
                                         $row1 = $r->fetch_assoc();
                                     ?>
@@ -391,17 +412,19 @@ ob_start();
                                         </div>
                                         <form id="scoreForm_<?php echo $row['matchId']; ?>" action="#" method="POST" style="display: none;">
                                             <?php
-                                            $ssql = "SELECT team1score,team2score FROM tbl_result WHERE matchId='$matchid'";
+                                            $ssql = "SELECT * FROM tbl_result WHERE matchId='$matchid'";
                                             $r = $conn->query($ssql);
                                             $row1 = $r->fetch_assoc();
                                             ?>
                                             <div class="matchScore">
                                                 <input type="hidden" name="matchid" value="<?php echo $matchid; ?>">
                                                 <h4>
+                                                    <input type="hidden" name="team1id" value="<?php echo $row1['team1id'] ?>">
                                                     <input name="team1Score" class="scoreInput" type="number" value="<?php echo isset($row1['team1score']) ? $row1['team1score'] : ''; ?>" required>
                                                 </h4>
                                                 <h4>VS</h4>
                                                 <h4>
+                                                    <input type="hidden" name="team2id" value="<?php echo $row1['team2id'] ?>">
                                                     <input name="team2Score" class="scoreInput" type="number" value="<?php echo isset($row1['team2score']) ? $row1['team2score'] : ''; ?>" required>
                                                 </h4>
 
