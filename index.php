@@ -21,6 +21,8 @@ if (isset($_SESSION['isCaptain'])) {
 
     <script src="https://kit.fontawesome.com/cf47e7251d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> 
+
 </head>
 
 <body>
@@ -65,7 +67,7 @@ if (isset($_SESSION['isCaptain'])) {
                             <p><strong>Total News : <?php echo $rowNews['COUNT(newsId)']; ?></strong></p>
                             <a href="newsletter.php" class="btn btn-primary">Manage News</a>
                         </div>
-                        <img src="images/DISPEL.png" alt="Image Not Found">
+                        <img src="images/DISPELS.jpg" alt="Image Not Found">
                     </div>
                     <div class="mainPanel">
                         <div class="panelCard">
@@ -78,7 +80,7 @@ if (isset($_SESSION['isCaptain'])) {
                             <p><strong>Total Teams : <?php echo $rowNews['COUNT(teamId)']; ?></strong></p>
                             <a href="teamreg.php" class="btn btn-primary">Manage Teams</a>
                         </div>
-                        <img src="images/DISPEL.png" alt="Image Not Found">
+                        <img src="images/DISPELS.jpg" alt="Image Not Found">
                     </div>
 
                     <div class="mainPanel">
@@ -92,7 +94,7 @@ if (isset($_SESSION['isCaptain'])) {
                             <p><strong>Tournaments created : <?php echo $rowNews['COUNT(tourId)']; ?></strong></p>
                             <a href="tournament.php" class="btn btn-primary">Manage Tournaments</a>
                         </div>
-                        <img src="images/DISPEL.png" alt="Image Not Found">
+                        <img src="images/DISPELS.jpg" alt="Image Not Found">
                     </div>
                     <div class="mainPanel">
                         <div class="panelCard">
@@ -105,7 +107,7 @@ if (isset($_SESSION['isCaptain'])) {
                             <p><strong>Total Players : <?php echo $rowNews['COUNT(playerId)']; ?></strong></p>
                             <a href="playerreg.php" class="btn btn-primary">Manage Players</a>
                         </div>
-                        <img src="images/DISPEL.png" alt="Image Not Found">
+                        <img src="images/DISPELS.jpg" alt="Image Not Found">
                     </div>
                     <div class="mainPanel">
                         <div class="panelCard">
@@ -118,7 +120,7 @@ if (isset($_SESSION['isCaptain'])) {
                             <p><strong>Registered Users : <?php echo $rowNews['COUNT(userId)']; ?></strong></p>
                             <a href="userlist.php" class="btn btn-primary">Manage Users</a>
                         </div>
-                        <img src="images/DISPEL.png" alt="Image Not Found">
+                        <img src="images/DISPELS.jpg" alt="Image Not Found">
                     </div>
                     <div class="mainPanel">
                         <div class="panelCard">
@@ -131,7 +133,7 @@ if (isset($_SESSION['isCaptain'])) {
                             <p><strong>Match Completed : <?php echo $rowNews['COUNT(matchId)']; ?></strong></p>
                             <a href="match.php" class="btn btn-primary">Manage Matches</a>
                         </div>
-                        <img src="images/DISPEL.png" alt="Image Not Found">
+                        <img src="images/DISPELS.jpg" alt="Image Not Found">
                     </div>
                 </div>
                 <?php
@@ -161,10 +163,7 @@ if (isset($_SESSION['isCaptain'])) {
 
             ?>
 
-<br>
-<br>
-<br>
-<br>
+
         </div>
 
         <div class="footer">

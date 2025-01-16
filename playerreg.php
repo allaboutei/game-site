@@ -16,6 +16,7 @@ ob_start();
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/cf47e7251d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> 
 </head>
 
 <body>
@@ -34,8 +35,36 @@ ob_start();
             </div>
             <?php
             
+            // Update player data
+            if (isset($_POST["btnUpdate"])) {
+                $editId = $_POST["editId"];
+                $link = $_POST["plink"];
+                $phno = $_POST["pno"];
+                $igname = $_POST["pign"];
+                $igid = $_POST["pigid"];
+                $pos = $_POST["ppos"];
+               
+                
+                $sqlUpdate = "UPDATE tbl_player 
+        SET playerFblink='$link', playerPhno='$phno', playerIgn='$igname', playerIgid='$igid', roleId='$pos'
+        WHERE playerId='$editId'";
+                if ($conn->query($sqlUpdate) === true) {
+                    echo "<div class='loader mg0Auto'></div>";
+                    echo "<h3 class='noti'>Player updated successfully</h3>";
+                    header("refresh:1,url=playerreg.php");
+                    exit();
+                } else {
+                    echo "<div>Update Error!</div>";
+                    echo "<i class='fa-solid fa-triangle-exclamation'></i>";
+                    header("refresh:1,url=playerreg.php");
+                }
+            }
+               
+
+
+
+            
             // Insert player data
-            // Insert or Update player data
             if (isset($_POST["btnSubmit"])) {
                 $name = $_SESSION["userName"];
                 $link = $_POST["plink"];
@@ -45,22 +74,7 @@ ob_start();
                 $igid = $_POST["pigid"];
                 $pos = $_POST["ppos"];
                 $uid = $_SESSION['userId'];
-                // Check if an editId is present to perform an update
-                if (isset($_POST["editId"])) {
-                    $editId = $_POST["editId"]; // Capture editId from the hidden field
-                    $sqlUpdate = "UPDATE tbl_player 
-            SET playerName='$name', playerFblink='$link', playerEmail='$email', playerPhno='$phno', playerIgn='$igname', playerIgid='$igid', roleId='$pos'
-            WHERE playerId='$editId'";
-                    if ($conn->query($sqlUpdate) === true) {
-                        echo "<div class='loader mg0Auto'></div>";
-                        echo "<h3 class='noti'>Player updated successfully</h3>";
-                        header("refresh:1,url=playerreg.php");
-                        exit();
-                    } else {
-                        echo "ERROR Update";
-                    }
-                } else {
-
+                
                     $sqlCheck = "SELECT * FROM tbl_player WHERE userId='$uid'";
                     $result = $conn->query($sqlCheck);
                     if ($result->num_rows > 0) {
@@ -77,12 +91,13 @@ ob_start();
                             echo "Record inserted successfully";
                             exit();
                         } else {
-                            echo "Insert Error";
+                            echo "<div>Register error!</div>";
+                        echo "<i class='fa-solid fa-triangle-exclamation'></i>";
+                        header("refresh:1,url=playerreg.php");
                         }
                     }
                 }
-            }
-            // Update player data
+            
             // Delete player data
             if (isset($_GET["deleteid"])) {
                 $delid = $_GET["deleteid"];
@@ -95,8 +110,10 @@ ob_start();
                         echo "<div class='loader mg0Auto'></div>";
                         header("refresh:1,url=playerreg.php");
                         exit();
-                    } else {
-                        echo "Error deleting the player";
+                    }else{
+                        echo "<div>Error deletion!</div>";
+                        echo "<i class='fa-solid fa-triangle-exclamation'></i>";
+                        header("refresh:1,url=playerreg.php");
                     }
                 }
                 echo "Error Deletion! The Player is assigned to a team";
@@ -151,7 +168,7 @@ ob_start();
                         ?>
                         <p class="labelTag">Role/Position</p>
                         <select name="ppos" class="selectTag" required>
-                            <option>------Select Role------</option>
+                            <option required>------Select Role------</option>
                             <?php
                             while ($row1 = $r->fetch_assoc()) {
                                 echo "<option value='" . $row1['roleId'] . "'>" . $row1['roleName'] . "</option>";
@@ -162,7 +179,7 @@ ob_start();
                     <?php if (isset($rowEdit)) { ?>
                         <input type="hidden" name="editId" value="<?php echo $rowEdit['playerId']; ?>">
                         <div class="register">
-                            <input id="updatebutton" name="btnSubmit" type="submit" class="btn btn-primary" value="Update">
+                            <input id="updatebutton" name="btnUpdate" type="submit" class="btn btn-primary" value="Update">
                         </div>
                     <?php } else { ?>
                         <div class="register">
@@ -251,10 +268,12 @@ ob_start();
                             } elseif ($role == "admin") {
                             ?>
                                 <td>
-                                    <a href="playerreg.php?editid=<?php echo $row['playerId']; ?>">Edit</a>
-                                    <a href="playerreg.php?deleteid=<?php
+                                    <div class="action">
+                                    <a class="btn btn-primary" href="playerreg.php?editid=<?php echo $row['playerId']; ?>">Edit</a>
+                                    <a class="btn btn-danger" href="playerreg.php?deleteid=<?php
                                                                     echo $row['playerId']; ?>">Delete</a>
-                                </td>
+                               
+                               </div></td>
                             <?php
                             } ?>
                         </tr>
@@ -267,9 +286,11 @@ ob_start();
                 }
         ?>
         </div>
-        <?php
-        include("footer.php");
-        ?>
+        <div class="footer">
+            <?php
+            include("footer.php");
+            ?>
+        </div>
     </div>
     <?php
     ob_end_flush();

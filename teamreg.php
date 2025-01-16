@@ -17,6 +17,7 @@ isset($_SESSION['role']) ? $role = $_SESSION['role'] : $role = "Not Logged In";
 
     <script src="https://kit.fontawesome.com/cf47e7251d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> 
 </head>
 
 <body>
@@ -27,7 +28,79 @@ isset($_SESSION['role']) ? $role = $_SESSION['role'] : $role = "Not Logged In";
             include("header.php");
             ?>
         </div>
-        <div class="main">
+        <div class="main"><?php
+
+if (isset($_POST["btnSubmit"])) {
+    $name = $_POST["tname"];
+    $email = $_POST["temail"];
+    $phno = $_POST["tno"];
+
+    if (isset($_FILES["tfile"]) && $_FILES["tfile"]["error"] == 0) {
+        $filename = $_FILES["tfile"]["name"];
+        $filepatch = $_FILES["tfile"]["tmp_name"];
+        move_uploaded_file($filepatch, "uploadfiles/" . $filename);
+    } else {
+        $filename = "";
+    }
+
+    if (isset($_POST["editId"])) {
+        $editId = $_POST["editId"];
+        $sql = "UPDATE tbl_team SET teamName='$name', teamEmail='$email', teamPhno='$phno', teamImage='$filename' WHERE teamId=' $editId'";
+        if ($conn->query($sql) == True) {
+            echo "<div>Successfully Updated One Record!</div>";
+            header("location:teamreg.php");
+            exit();
+        }
+    } else {
+        $sql = "INSERT INTO tbl_team (teamId, teamName, teamEmail, teamPhno, teamImage,assignedTour) VALUES (NULL, '$name','$email', '$phno','$filename','0')";
+        if ($conn->query($sql) == True) {
+            echo "Record inserted successfully";
+            header("location:teamreg.php");
+            exit();
+        } else {
+            echo "Insertion Error";
+        }
+    }
+}
+
+
+
+
+$editRow = null;
+if (isset($_GET["editid"])) {
+    $eid = $_GET["editid"];
+    $sql = "SELECT * from tbl_team WHERE teamId='$eid'";
+    $result = $conn->query($sql);
+    $editRow = $result->fetch_assoc();
+}
+
+
+        if (isset($_GET["deleteid"])) {
+                    $delid = $_GET["deleteid"];
+                    $sqlCheck = "SELECT * FROM tbl_allocate ta
+                    JOIN tbl_team tt ON ta.teamId=tt.teamId
+                     WHERE ta.teamId='$delid'";
+                $resultCheck = $conn->query($sqlCheck);
+                if ($resultCheck->num_rows > 0) {
+                    echo "<div>Error deletion! There are allocated players in this team</div>";
+                    echo "<i class='fa-solid fa-triangle-exclamation'></i>";
+                    header("refresh:1,url=teamreg.php");
+                }else{
+                    $sql = "DELETE FROM tbl_team WHERE teamId = '$delid'";
+                    if ($conn->query($sql) == TRUE) {
+                        echo "<div> Team deleted successfully</div>";
+                        echo "<div class='loader mg0Auto'></div>";
+                        header("location:teamreg.php");
+                        exit();
+                    }else{
+                        echo "<div>Error deletion!</div>";
+                        echo "<i class='fa-solid fa-triangle-exclamation'></i>";
+                        header("refresh:1,url=teamreg.php");
+                    }
+                }
+                   
+                }
+                ?>
             <div class="formBtnModule <?php if (isset($_SESSION['userRoleId'])) {
                                             if ($_SESSION['userRoleId'] == 0) {
                                                 echo "blockContent";
@@ -53,57 +126,7 @@ isset($_SESSION['role']) ? $role = $_SESSION['role'] : $role = "Not Logged In";
                     <h4>Register Your Team Here</h4>
                 </div>
                 <?php
-                if (isset($_POST["btnSubmit"])) {
-                    $name = $_POST["tname"];
-                    $email = $_POST["temail"];
-                    $phno = $_POST["tno"];
-
-                    if (isset($_FILES["tfile"]) && $_FILES["tfile"]["error"] == 0) {
-                        $filename = $_FILES["tfile"]["name"];
-                        $filepatch = $_FILES["tfile"]["tmp_name"];
-                        move_uploaded_file($filepatch, "uploadfiles/" . $filename);
-                    } else {
-                        $filename = "";
-                    }
-
-                    if (isset($_POST["editId"])) {
-                        $editId = $_POST["editId"];
-                        $sql = "UPDATE tbl_team SET teamName='$name', teamEmail='$email', teamPhno='$phno', teamImage='$filename' WHERE teamId=' $editId'";
-                        if ($conn->query($sql) == True) {
-                            echo "<div>Successfully Updated One Record!</div>";
-                            header("location:teamreg.php");
-                            exit();
-                        }
-                    } else {
-                        $sql = "INSERT INTO tbl_team (teamId, teamName, teamEmail, teamPhno, teamImage,assignedTour) VALUES (NULL, '$name','$email', '$phno','$filename','0')";
-                        if ($conn->query($sql) == True) {
-                            echo "Record inserted successfully";
-                            header("location:teamreg.php");
-                            exit();
-                        } else {
-                            echo "Insertion Error";
-                        }
-                    }
-                }
-
-
-
-                if (isset($_GET["deleteid"])) {
-                    $delid = $_GET["deleteid"];
-                    $sql = "DELETE FROM tbl_team WHERE teamId = '$delid'";
-                    if ($conn->query($sql) == TRUE) {
-                        echo "<div> Record deleted successfully</div>";
-                        header("location:teamreg.php");
-                        exit();
-                    }
-                }
-                $editRow = null;
-                if (isset($_GET["editid"])) {
-                    $eid = $_GET["editid"];
-                    $sql = "SELECT * from tbl_team WHERE teamId='$eid'";
-                    $result = $conn->query($sql);
-                    $editRow = $result->fetch_assoc();
-                }
+              
                 ?>
                 <form action="#" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="<?php echo ($editRow['teamId']) ? $editRow['teamId'] : ""; ?>">
@@ -125,9 +148,12 @@ isset($_SESSION['role']) ? $role = $_SESSION['role'] : $role = "Not Logged In";
                     </div>
                     <div class="register">
                         <p class="labelTag">Upload Team Logo</p>
-                        <input name="tfile" type="file" class="form-control uploadTag">
+                        <input name='tfile' type='file' class='form-control uploadTag'>
+                      
                     </div>
                     <?php if (isset($editRow)) {
+                            echo "<p>Previous logo</p> <img src='uploadfiles/" . $editRow['teamImage'] . "' alt='team logo' class='whImg'>";
+                        
                     ?>
                         <div class="register">
                             <input type="hidden" name="editId" value="<?php echo $editRow['teamId']; ?>">
@@ -149,12 +175,12 @@ isset($_SESSION['role']) ? $role = $_SESSION['role'] : $role = "Not Logged In";
 
 
             <div class="feed">
+            <div class="headings">
+                        <h1>TEAMS</h1>
+                    </div>
 
-           
                 <div class="teamC">
-                <div class="headings">
-        <h1>TEAMS</h1>
-    </div>
+                    
                     <?php while ($row = $result->fetch_assoc()) { ?>
 
                         <div class="teamCa">
@@ -190,15 +216,17 @@ isset($_SESSION['role']) ? $role = $_SESSION['role'] : $role = "Not Logged In";
                 </div>
 
             <?php } ?>
-<br>
-<br>
+            
             </div>
 
 
         </div>
-        <?php
-        include("footer.php");
-        ?>
+        <div class="footer">
+            <?php
+            include("footer.php");
+            ?>
+        </div>
+
     </div>
 
     <?php

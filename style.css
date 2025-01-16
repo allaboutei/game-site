@@ -1,10 +1,26 @@
-@import url('https://fonts.googleapis.com/css2?family=Abel&family=Agdasima:wght@400;700&family=Arsenal+SC&family=Forum&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Rationale&display=swap');
+body {
+  font-family: 'Roboto Condensed', sans-serif;
+  background-color: #0d1117; /* Dark background for gaming vibes */
+  color: #d1d5db; /* Muted gray text for readability */
+}
+
+
+/* Navigation */
+.navibar a {
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+/* Buttons */
+button, .btn {
+  font-weight: 700;
+  text-transform: uppercase;
+}
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-font-family: Libre;
-font-size: large;
+
 }
 
 
@@ -14,7 +30,7 @@ td {
   padding: 10px;
   width: fit-content;
   height: fit-content;
-  border: 3px solid darkgreen;
+  border: 3px solid #f0ad4e;
   border-collapse: collapse;
 }
 
@@ -29,53 +45,105 @@ td {
 /* header css */
 .header {
   display: flex;
-  text-align: center;
-  flex-direction: row;
-  background-color: black;
-  height: 10%;
-  width: 100%;
   justify-content: space-between;
   align-items: center;
-  padding: 40px 0px;
-}
-.header img {
-  height: 100%;
-  width: 20%;
-  border-radius: 50%;
-}
-.logo {
-  width: 20%;
-}
-.navibar {
-  display: flex;
-  flex-direction: row;
-  width: 50%;
-  justify-content: space-around;
-  align-items: center;
-  z-index: 2;
+  background-color: black;
+  padding: 15px 30px;
   position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
+.header img {
+  height: 70px;
+  width: auto;
+  /* border-radius: 50%; */
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+/* Navigation Bar */
+.navibar ul {
+  display: flex;
+  gap: 25px;
+  list-style-type: none;
+}
+
+.navibar li {
+  position: relative;
+}
+
 .navibar a {
-  color: white;
   text-decoration: none;
-  font-size: 20px;
-  /* border: 6px solid white; */
-  padding: 8px 15px;
-  z-index: 3;
+  color: white;
+  font-size: 18px;
+  padding: 5px 10px;
+  position: relative;
+  transition: color 0.3s ease;
 }
-.navibar a.currentTab {
-  border-bottom: 2px solid red;
+
+.navibar a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 0%;
+  height: 2px;
+  background-color: red;
+  transition: width 0.3s ease;
+}
+
+.navibar a:hover::after,
+.navibar a.active::after {
+  width: 100%;
+}
+
+.navibar a:hover,
+.navibar a.active {
   color: red;
 }
-.navibar a:hover {
-  border-bottom: 2px solid red;
-  color: red;
-}
+
+/* Login Module */
 .loginModule {
-  width: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  align-content: center;
+  color: white;
 }
+
+.loginModule .btn {
+  display: inline-block;
+  background: gray;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  text-align: center;
+  margin-top: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.loginModule .btn:hover {
+  background: red;
+}
+
+/* Log In/Out Module */
+.logInOut {
+  display: flex;
+  gap: 10px; /* Space between buttons */
+}
+
+.logInOut a {
+  text-decoration: none;
+}
+
+
+
 /* header css */
 /* body css */
 .main {
@@ -85,7 +153,6 @@ td {
   justify-content: space-between;
   align-items: center;
   background-color: rgb(15, 25, 35);
-  margin-bottom: 50px;
 }
 .register {
   padding: 0px 20px;
@@ -131,7 +198,7 @@ td {
   transition: top 0.5s ease-in-out;
   border: 2px solid cyan;
   margin-bottom: 50px;
-  margin-top: 100px;
+  /* margin-top: 100px; */
 }
 .blockContent {
   display: none;
@@ -165,18 +232,71 @@ td {
 }
 /* Drop down animation */
 .footer {
-  color: white;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  bottom: 0px;
-  width: 100%;
-  position: fixed;
-  z-index: 5;
   background-color: black;
+  color: white;
+  padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
 }
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.footer-about, .footer-links, .footer-contact, .footer-social {
+  flex: 1;
+  margin: 10px;
+}
+
+.footer-about h4, .footer-links h4, .footer-contact h4, .footer-social h4 {
+  color: red;
+  margin-bottom: 15px;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links ul li {
+  margin-bottom: 10px;
+}
+
+.footer-links ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+.footer-links ul li a:hover {
+  color: red;
+}
+
+.footer-social a {
+  color: white;
+  margin: 0 10px;
+  font-size: 1.5em;
+}
+
+.footer-social a:hover {
+  color: red;
+}
+
+.footer-bottom {
+  margin-top: 20px;
+  text-align: center;
+  border-top: 1px solid gray;
+  padding-top: 10px;
+  width: 100%;
+}
+
+
+
 .footer > p {
   text-align: center;
   margin: 10px 10px;
@@ -192,28 +312,77 @@ td {
 .homePage {
   width: 90%;
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
   flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px 0;
 }
+
 .mainPanel {
-  margin: 20px 0px;
-  width: 40%;
+  width: 45%;
+  max-width: 400px;
   display: flex;
-  flex-direction: row;
+  align-items: center;
   justify-content: space-between;
-  border: 3px solid turquoise;
-  border-radius: 5px;
-  padding: 10px;
+  background: #0d1117;
+  border: 2px solid #f0ad4e;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+.mainPanel:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.4);
+}
+
 .mainPanel img {
-  width: 25%;
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  border-radius: 8px;
+  margin-left: 15px;
+  background: #1c1f24;
+  padding: 8px;
 }
+
 .panelCard {
   display: flex;
   flex-direction: column;
   text-align: left;
+  color: #ffffff;
 }
+
+.panelCard h4 {
+  font-size: 1.4em;
+  margin-bottom: 10px;
+  color: #f0ad4e;
+}
+
+.panelCard p {
+  font-size: 1.1em;
+  margin: 5px 0;
+}
+
+.panelCard a {
+  text-decoration: none;
+  font-size: 1em;
+  margin-top: 10px;
+  display: inline-block;
+  padding: 8px 15px;
+  background: #f0ad4e;
+  color: #0d1117;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.panelCard a:hover {
+  background: #ffffff;
+  color: #f0ad4e;
+}
+
 /* Slider styling */
 .slider {
   position: relative;
@@ -258,18 +427,8 @@ td {
   opacity: 1;
   background-color: #ff5722;
 }
-/* Responsive design */
-/* @media (max-width: 768px) {
-  .slider {
-    width: 100%;
-    height: 300px;
-  }
-  .manual-btn {
-    width: 8px;
-    height: 8px;
-  }
-} */
-/* Home Page  */
+
+
 /* News Page */
 .newsContainer {
   margin: 0 auto;
@@ -376,63 +535,103 @@ td {
 }
 /* player page */
 /* team page */
-.teamContainer {
-  width: 100vw;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.teamContainer a {
-  text-decoration: none;
-  color: white;
-  /* margin: 5px; */
-}
-.teamCard {
-  width: 30%;
-  border-radius: 5px;
-  color: white;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  padding: 10px;
-  margin: 10px;
-}
-.teamInfo {
-  display: flex;
-  flex-direction: column;
-  width: 80%;
-}
-/* team page */
-/* Teampage before login */
 .teamC {
-  width: 100vw;
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
+
+.headings {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.headings h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #f1c40f; 
+ 
+  text-transform: uppercase;
+  text-align: center;
+  border-bottom: 2px solid #58a6ff; /* Optional underline effect */
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+}
+
 .teamCa {
-  width: 30%;
-  border-radius: 5px;
-  color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: left;
-  padding: 10px;
-  border: 2px solid white;
-  margin: 10px;
+  padding-top: 20px;
+  background-color: rgb(236, 232, 225);
+  width: 300px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
 }
+
+.teamCa:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
 .teamCa a {
   text-decoration: none;
-  color: white;
-  /* margin: 5px; */
+  color: inherit;
 }
-.teamI {
-  display: flex;
-  flex-direction: column;
+
+.whImg {
   width: 100%;
+  height: 200px;
+  object-fit: cover;
 }
+
+.teamI {
+  padding: 15px;
+  text-align: center;
+}
+
+.teamI p {
+  margin: 5px 0;
+  font-size: 1rem;
+  color: #555;
+}
+
+.action {
+  margin-top: 15px;
+}
+
+.action a {
+  margin: 5px;
+  text-decoration: none;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.action .btn-primary {
+  background-color: #007bff;
+  border: none;
+}
+
+.action .btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.action .btn-danger {
+  background-color: #dc3545;
+  border: none;
+}
+
+.action .btn-danger:hover {
+  background-color: #b21f2d;
+}
+
 /* Teampage before login */
 /* player allocate */
 .allocateContainer {
@@ -494,15 +693,14 @@ td {
 }
 .tourCard {
   margin: 20px 0px;
-  color: whitesmoke;
+  color: black;
   font-size: larger;
   height: 40vh;
   width: 80%;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  background-image: url(images/tourbg.jpg);
-  background-size: cover;
+  background-color: rgb(236, 232, 225);
   position: relative;
   overflow: hidden;
 }
@@ -510,8 +708,7 @@ td {
   width: 300px;
   height: 300px;
   position: absolute;
-  opacity: 0.5;
-  right: 1%;
+  right: 0%;
 }
 .tourInfo {
   padding: 20px;
@@ -597,11 +794,12 @@ td {
 }
 
 .recentMatch {
+  padding: 10px 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 90%;
-  background-color: rgb(236, 232, 225);
+  background-color: gray;
 }
 .recentCard {
   padding: 10px;
@@ -654,51 +852,111 @@ td {
 }
 /* user page */
 /* login page */
-.loginContent {
-  position: relative;
-  padding: 0px 20px 20px 20px;
-  margin: 0 auto;
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  border-radius: 10px;
-  /* transition: all 0.5s ease-in-out; */
-  border: 2px solid cyan;
-  margin-bottom: 50px;
-  margin-top: 100px;
-}
-/* login page */
-/* creating new user */
-.createForm {
-  position: relative;
-  padding: 0px 20px 20px 20px;
-  margin: 0 auto;
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  border-radius: 10px;
-  /* transition: all 0.5s ease-in-out; */
-  border: 2px solid cyan;
-  margin-bottom: 50px;
-  margin-top: 100px;
-}
-.createLogin {
-  margin-top: 10px;
-  margin-bottom: 10px;
+/* Login Wrapper */
+.loginWrapper {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
-  transition: all 0.5s ease-in-out;
+  width: 80%;
+  max-width: 1000px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+  margin: 50px auto;
+  overflow: hidden;
 }
-.createLogin p {
-  user-select: none;
+
+/* Image Section */
+.loginImage {
+  width: 50%;
+  overflow: hidden;
+}
+
+.loginImage img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Form Section */
+.Form {
+  width: 50%;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.Form h2 {
+  color: #f0ad4e;
+  margin-bottom: 20px;
+}
+
+.Form p {
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.formGroup {
+  margin-bottom: 15px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-control:focus {
+  outline: none;
+  border: 1px solid #007bff;
+}
+
+.btn-primary {
+  background-color: #f0ad4e;
+  border: none;
+  padding: 10px;
   cursor: pointer;
-  color: blue;
-  text-decoration: underline;
+  color: black;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
-/* creating new user */
+
+.btn-primary:hover {
+  background-color: #ffc107;
+}
+
+.createLogin {
+  margin-top: 15px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.createLogin span {
+  margin-right: 5px;
+}
+
+.createLogin a {
+  color: #f0ad4e;
+  text-decoration: none;
+}
+
+.createLogin a:hover {
+  color: #ffc107;
+}
+
+.term a{
+  color:#f0ad4e;
+}
+
+/* login page */
+
 /* profile page */
 .profileContainer {
   width: 100%;
@@ -863,3 +1121,43 @@ body::-webkit-scrollbar {
   }
 }
 /* Globals */
+
+/* Responsiveness */
+@media screen and (max-width: 768px) {
+  .navibar ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    justify-content: center;
+  }
+
+  .navibar li {
+    text-align: center;
+  }
+
+  .header {
+    flex-direction: column;
+  }
+
+  .loginModule {
+    margin-top: 15px;
+  }
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-about, .footer-links, .footer-contact, .footer-social {
+    margin: 20px 0;
+    text-align: center;
+  }
+  .loginWrapper {
+    flex-direction: column;
+  }
+
+  .loginImage,
+  .loginForm {
+    width: 100%;
+  }
+}
+/* Responsiveness */

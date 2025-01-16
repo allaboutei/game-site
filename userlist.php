@@ -16,6 +16,7 @@ ob_start();
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/cf47e7251d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> 
     <script>
      
         function toggleCaptainForm(userId) {
@@ -45,7 +46,19 @@ ob_start();
                 $deleteId = intval($_GET['deleteid']);
                 $sqlDelete = "UPDATE tbl_user SET status='0' WHERE userId = '$deleteId'";
                 if ($conn->query($sqlDelete) == true) {
-                    echo "<h3 class='noti'>User deleted successfully</h3>";
+                    echo "<h3 class='noti'>User is deactivated successfully</h3>";
+                    echo "<div class='loader mg0Auto'></div>";
+                    header("refresh:1,url=userlist.php");
+                    exit();
+                } else {
+                    echo "Error deleting record: " . $conn->error;
+                }
+            }
+            if (isset($_GET['undeleteid'])) {
+                $undeleteId = intval($_GET['undeleteid']);
+                $sqlunDelete = "UPDATE tbl_user SET status='1' WHERE userId = '$undeleteId'";
+                if ($conn->query($sqlunDelete) == true) {
+                    echo "<h3 class='noti'>User is reactivated successfully</h3>";
                     echo "<div class='loader mg0Auto'></div>";
                     header("refresh:1,url=userlist.php");
                     exit();
@@ -146,7 +159,7 @@ ob_start();
                                 <div class="memberInfo">
                                     <p>ID: <?php echo $row["userId"];
                                             if ($row['status'] == 0) {
-                                                echo "<h5 class='deleted'>User Account is Deleted</h5>";
+                                                echo "<h5 class='deleted'>User Account is Deactivated</h5>";
                                             }
 
                                             ?></p>
@@ -161,7 +174,18 @@ ob_start();
                                                     ?></p>
                                     <p>Role: <?php echo ($row["userRoleId"] == 1) ? "Admin" : "User"; ?></p>
                                     <div class="">
-                                        <a class="btn btn-danger" href="userlist.php?deleteid=<?php echo $row["userId"]; ?>">Delete</a>
+                                        <?php 
+                                        if($row["status"] == 1){
+?>
+<a class="btn btn-danger" href="userlist.php?deleteid=<?php echo $row["userId"]; ?>">De-activate</a>
+<?php
+                                        }else{?>
+                                            <a class="btn btn-success" href="userlist.php?undeleteid=<?php echo $row["userId"]; ?>">Re-activate</a>
+<?php
+                                        }
+                                        
+                                        ?>
+                                        
                                         <?php if ($row["userRoleId"] == 1) { ?>
                                             <a class="btn btn-warning" href="userlist.php?editid=<?php echo $row["userId"]; ?>">Demote</a>
                                         <?php } else { ?>

@@ -15,7 +15,22 @@ ob_start();
     <script src="https://kit.fontawesome.com/cf47e7251d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
 </head>
+<?php
+if ($conn->query($sqlDelete) == true) {
+    echo "<h3 class='noti'>User is deactivated successfully</h3>";
+    echo "<div class='loader mg0Auto'></div>";
+    header("refresh:1,url=userlist.php");
+    exit();
+} else {
+    
+        echo "<h3 class='noti'>Please Select A Team</h3>";
+        echo "<i class='fa-solid fa-triangle-exclamation'></i>";
+        header("refresh:1,url=userlist.php");
+        
+    
+}
 
+?>
 <body>
     <div class="container">
         <div class="header">

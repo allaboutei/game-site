@@ -15,6 +15,7 @@ ob_start();
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/cf47e7251d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> 
 </head>
 
 <body>
@@ -23,33 +24,36 @@ ob_start();
             <?php include("header.php"); ?>
         </div>
         <div class="main">
-
-            <!-- Create Form -->
-            <div class="createForm">
+<div class="loginWrapper">
+<div class="loginImage">
+                    <img src="images/DISPEL.jpg" alt="Login Banner">
+                </div>
+     <!-- Create Form -->
+     <div class="Form">
                 <div class="register heading">
-                    <h5>Create your account</h5>
+                    <h2>Create your account</h2>
                 </div>
 
                 <!-- Display error message for create form -->
                 <?php include_once("./errors/create_error.php") ?>
 
                 <form action="loginAuth.php" method="POST">
-                    <div class="register">
-                        <label class="labelTag" for="">Create User Name</label>
+                    <div class="formGroup">
+                        <label class="" for="">Create User Name</label>
                         <input name="cname" class="form-control" type="text" required>
                     </div>
                     <br>
-                    <div class="register">
-                        <label class="labelTag">Enter Email address</label>
+                    <div class="formGroup">
+                        <label class="">Enter Email address</label>
                         <input name="cemail" type="email" class="form-control" placeholder="name@example.com" required>
                     </div>
                     <br>
-                    <div class="register">
-                        <label class="labelTag">Create Password</label>
+                    <div class="formGroup">
+                        <label class="">Create Password</label>
                         <input name="cpassword" type="password" class="form-control" placeholder="Max 20 characters" required>
                     </div>
                     <br>
-                    <div class="register">
+                    <div class="formGroup">
                         <input name="btnCreate" class="btn btn-primary" type="submit" value="Create">
                     </div>
                 </form>
@@ -58,10 +62,12 @@ ob_start();
                    
                 </div>
                 <div class="createLogin">
-                    <label>Already a user?</label>
-                    <a href="login.php"><p id="loginuserlink">Login Here</p></a>
+                    <span>Already a user?</span>
+                    <a href="login.php">Login Here</a>
                 </div>
             </div>
+</div>
+           
 
 
         </div>

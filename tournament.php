@@ -17,6 +17,7 @@ ob_start();
 
     <script src="https://kit.fontawesome.com/cf47e7251d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> 
 </head>
 
 <body>
@@ -101,6 +102,7 @@ ob_start();
                 </form>
 
             </div>
+            <br>
             <div class="feed">
             <div class="headings">
     <h1>TOURNAMENTS</h1>

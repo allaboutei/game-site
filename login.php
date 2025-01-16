@@ -15,6 +15,7 @@ ob_start();
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/cf47e7251d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> 
 </head>
 
 <body>
@@ -22,46 +23,42 @@ ob_start();
         <div class="header">
             <?php include("header.php"); ?>
         </div>
+
         <div class="main">
-
-            <!-- Login Form -->
-            <div class="loginContent">
-                <div class="register heading">
-                    <h5>Login to eSports Site</h5>
+            <div class="loginWrapper">
+                <!-- Image Section -->
+                <div class="loginImage">
+                    <img src="images/DISPEL.jpg" alt="Login Banner">
                 </div>
-
-                <!-- Include login error message if exists -->
-                <?php include_once("./errors/login_error.php") ?>
-
-                <form action="loginAuth.php" method="POST">
-                    <div class="register">
-                        <label class="labelTag">User Name</label>
-                        <input name="uname" type="text" class="form-control" required>
+                <!-- Form Section -->
+                <div class="Form">
+                    <h2>Welcome Back</h2>
+                    <p>Login to access your eSports profile and participate in tournaments.</p>
+                    <?php include_once("./errors/login_error.php"); ?>
+                    <form action="loginAuth.php" method="POST">
+                        <div class="formGroup">
+                            <label for="uname">User Name</label>
+                            <input id="uname" name="uname" type="text" class="form-control" required>
+                        </div>
+                        <div class="formGroup">
+                            <label for="upw">Password</label>
+                            <input id="upw" name="upw" type="password" class="form-control" required>
+                        </div>
+                        <div class="formGroup">
+                            <input name="btnLogin" class="btn btn-primary" type="submit" value="Login">
+                        </div>
+                    </form>
+                    <div class="createLogin">
+                        <span>Don't have an account?</span>
+                        <a href="register.php">Create an account</a>
                     </div>
-                    <br>
-                    <div class="register">
-                        <label class="labelTag">Password</label>
-                        <input name="upw" type="password" class="form-control" required>
-                    </div>
-                    <br>
-                    <div class="register">
-                        <input name="btnLogin" class="btn btn-primary" type="submit" value="Login">
-                    </div>
-                </form>
-                <div class="createLogin">
-                    <label>Don't have an account?</label>
-                    <a href="register.php"><p id="createnewuserlink">Create an account</p></a>
                 </div>
             </div>
-
         </div>
-        <?php include("footer.php"); ?>
+
+        <div class="footer">
+            <?php include("footer.php"); ?>
+        </div>
     </div>
-
-    <?php ob_end_flush(); ?>
-
-   
-
 </body>
-
 </html>

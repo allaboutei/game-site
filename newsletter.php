@@ -15,6 +15,7 @@ ob_start(); ?>
 
     <script src="https://kit.fontawesome.com/cf47e7251d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> 
 </head>
 
 <body>
@@ -37,6 +38,7 @@ ob_start(); ?>
                 <button class="fillForm fillBtn">Fill Form </button>
                 <i class="fa-solid fa-scroll"></i>
             </div>
+            <br>
             <div class="content <?php if (isset($_SESSION['userRoleId'])) {
                 if ($_SESSION['userRoleId'] == 0) {
                     echo "blockContent";
@@ -91,11 +93,7 @@ ob_start(); ?>
                         <input name="btnUpload" class="btn btn-primary" type="submit" value="Upload News">
                     </div>
                 </form>
-                <?php
-                $sql = "SELECT * FROM tbl_news";
-                $result = $conn->query($sql);
-                if ($result->num_rows > 0) {
-                    ?>
+               
                 </div>
 
                 <div class="feed">
@@ -103,7 +101,12 @@ ob_start(); ?>
     <h1>NEWS</h1>
 </div>
                     <div class="newsContainer">
-                        <?php while ($row = $result->fetch_assoc()) {
+                        <?php 
+                         
+                         $sql = "SELECT * FROM tbl_news";
+                         $result = $conn->query($sql);
+                         if ($result->num_rows > 0) {
+                             while ($row = $result->fetch_assoc()) {
 
                             ?>
                             <a href="<?php echo './newsdetails.php?id=' . $row["newsId"] ?>">
@@ -121,11 +124,15 @@ ob_start(); ?>
                         <?php } ?>
                     </div>
 
-                    <div class="pageNoContainer">
-
-                    </div>
+                   
                 </div>
+            
                 <?php
+                }
+                else {
+                    echo "<div class='newsContainer'>
+                <h4 style='color:black;'>No News Available</h4>
+            </div>";
                 }
                 ?>
                 <br>

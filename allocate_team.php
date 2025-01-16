@@ -15,6 +15,7 @@ session_start();
 
     <script src="https://kit.fontawesome.com/cf47e7251d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> 
 </head>
 
 <body>
@@ -42,21 +43,25 @@ session_start();
                 <h5><?php echo $row['tourName'] ?></h5>
                 <p><strong>Venue : </strong><?php echo $row['tourLocation']  ?></p>
                 <p><strong>Description : </strong><?php echo $row['tourDesc'] ?></p>
-                <br>
-                <div class="">
-                    <h5>Competing Teams</h5>
+                <hr>
+                <h4>Competing Teams</h4>
+                <div style="margin: 0 auto; display: flex; justify-content: center;">
+
                     <?php
                     $sql1 = "SELECT tm.teamId,tm.teamName,tm.teamImage
-                    FROM tbl_team tm LEFT JOIN tbl_team_allocate  ta ON tm.teamId=ta.teamId WHERE ta.tourId='$tourid' ";
+                    FROM tbl_team tm LEFT JOIN tbl_team_allocate  ta ON tm.teamId=ta.teamId       
+                    WHERE ta.tourId='$tourid' ";
 
                     $result1 = $conn->query($sql1);
                     if ($result1 && $result1->num_rows > 0) {
                     ?>
+
                         <table>
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Team Logo</th>
+                                <th>Players</th>
                                 <?php if (!isset($_SESSION['userRoleId']) || $_SESSION['userRoleId'] == 0) {
 
                                     echo "";
@@ -66,12 +71,32 @@ session_start();
                             </tr>
                             <?php
                             while ($row1 = $result1->fetch_assoc()) {
+
                             ?>
                                 <tr>
                                     <td><?php echo $row1['teamId']; ?></td>
                                     <td><?php echo $row1['teamName']; ?></td>
                                     <td><img class="whImg" src="uploadfiles/<?php echo $row1['teamImage']; ?>" alt=""></td>
+                                    <td>
 
+                                        <?php
+                                        if (isset($row1['teamId'])) {
+                                            $teamid = $row1['teamId'];
+                                            $sql3 = "SELECT tp.* FROM tbl_player tp
+                                                    LEFT JOIN tbl_allocate ta ON tp.playerId=ta.playerId
+                                                    WHERE teamId='$teamid'";
+                                            $result3 = $conn->query($sql3);
+                                            if ($result3 && $result3->num_rows > 0) {
+                                                while ($row3 = $result3->fetch_assoc()) {
+                                                    echo $row3['playerName'] . "<br>";
+                                                }
+                                            }
+                                        } else {
+                                            echo "No Players Assigned";
+                                        }
+
+                                        ?>
+                                    </td>
                                     <?php if (!isset($_SESSION['userRoleId']) || $_SESSION['userRoleId'] == 0) {
 
                                         echo "";
@@ -99,65 +124,91 @@ session_start();
                     }
                     ?>
                 </div>
-            
+
                 <div class=" <?php if (!isset($_SESSION['userRoleId']) || $_SESSION['userRoleId'] == 0) {
 
                                     echo "blockContent";
                                 } else {
                                     echo "";
                                 } ?>">
-                                <br>
+                    <hr>
+                    <br>
                     <h4>Available Teams</h4>
-                    <?php
+                    <div style="margin: 0 auto; display: flex; justify-content: center;">
+                        <?php
 
-                    $sql2 = "SELECT tm.teamId,tm.teamName,tm.teamImage FROM tbl_team tm 
+                        $sql2 = "SELECT tm.teamId,tm.teamName,tm.teamImage FROM tbl_team tm 
                     LEFT JOIN tbl_team_allocate ta ON tm.teamId=ta.teamId AND ta.tourId='$tourid' WHERE ta.teamId IS NULL";
 
-                    $result2 = $conn->query($sql2);
-                    if ($result2 && $result2->num_rows > 0) {
-                    ?>
-                        <table>
-                            <tr>
-                                <th>Team ID</th>
-                                <th>Team Name</th>
-                                <th>Team Logo</th>
-                                <th>Assign Teams</th>
-
-                            </tr>
-                            <?php
-                            while ($row2 = $result2->fetch_assoc()) {
-                            ?>
+                        $result2 = $conn->query($sql2);
+                        if ($result2 && $result2->num_rows > 0) {
+                        ?>
+                            <table>
                                 <tr>
-                                    <td><?php echo $row2['teamId']; ?></td>
-                                    <td><?php echo $row2['teamName']; ?></td>
-                                    <td><img class="whImg" src="uploadfiles/<?php echo $row2['teamImage']; ?>" alt=""></td>
-
-
-
-                                    <td>
-                                        <form action="allocations/team.php" method="GET">
-                                            <input type="hidden" name="teamId" value="<?php echo $row2['teamId']; ?>">
-                                            <input type="hidden" name="tourId" value="<?php echo $tourid; ?>">
-                                            <input class="btn btn-success" name="btnAssign" type="submit" value="Assign">
-                                        </form>
-                                    </td>
-                                    <?php
-                                    ?>
-
+                                    <th>Team ID</th>
+                                    <th>Team Name</th>
+                                    <th>Team Logo</th>
+                                    <th>Players</th>
+                                    <th>Assign Teams</th>
 
                                 </tr>
-                            <?php
-                            }
-                            ?>
-                        </table>
-                    <?php
-                    } else {
-                        echo "No Available Teams";
-                    }
-                    ?>
+                                <?php
+                                while ($row2 = $result2->fetch_assoc()) {
+                                ?>
+                                    <tr>
+                                        <td><?php echo $row2['teamId']; ?></td>
+                                        <td><?php echo $row2['teamName']; ?></td>
+                                        <td><img class="whImg" src="uploadfiles/<?php echo $row2['teamImage']; ?>" alt=""></td>
+
+                                        <td>
+
+                                            <?php
+                                            if (isset($row2['teamId'])) {
+                                                $teamid = $row2['teamId'];
+                                                $sql3 = "SELECT tp.* FROM tbl_player tp
+                                                        LEFT JOIN tbl_allocate ta ON tp.playerId=ta.playerId
+                                                        WHERE teamId='$teamid'";
+                                                $result3 = $conn->query($sql3);
+                                                if ($result3 && $result3->num_rows > 0) {
+                                                    while ($row3 = $result3->fetch_assoc()) {
+                                                        echo $row3['playerName'] . "<br>";
+                                                    }
+                                                }
+                                            } else {
+                                                echo "No Players Assigned";
+                                            }
+
+
+                                            ?>
+
+                                        </td>
+
+                                        <td>
+                                            <form action="allocations/team.php" method="GET">
+                                                <input type="hidden" name="teamId" value="<?php echo $row2['teamId']; ?>">
+                                                <input type="hidden" name="tourId" value="<?php echo $tourid; ?>">
+                                                <input class="btn btn-success" name="btnAssign" type="submit" value="Assign">
+                                            </form>
+                                        </td>
+                                        <?php
+                                        ?>
+
+
+                                    </tr>
+                                <?php
+                                }
+                                ?>
+                            </table>
+                        <?php
+                        } else {
+                            echo "No Available Teams";
+                        }
+                        ?>
+                    </div>
                 </div>
             </div>
         </div>
+        <br>
         <div class="footer">
             <?php
             include("footer.php");

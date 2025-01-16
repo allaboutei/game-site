@@ -14,6 +14,7 @@ ob_start();
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/cf47e7251d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> 
 </head>
 
 <body>
@@ -107,7 +108,7 @@ ob_start();
                                         echo "";
                                     }
                                     ?>
-                                    <img src="profile/<?php echo isset($row['playerImg']) ? $row['playerImg'] : '../images/DISPEL.jpg' ?>" alt="Image not loaded">
+                                   <img src="profile/<?php echo isset($row['playerImg']) ? $row['playerImg'] : '../images/default player image.webp' ?>" alt="Image not loaded">
                                     <?php
                                     ?>
                                     <h6><?php echo $row['playerName']; ?>
@@ -161,7 +162,7 @@ ob_start();
                                         <input class="btn btn-success" name="btnAssign" type="submit" value="Assign">
                                     </form>
                                 </div>
-                                <img src="profile/<?php echo isset($rowp['playerImg']) ? $rowp['playerImg'] : '../images/DISPEL.jpg' ?>" alt="Image not loaded">
+                                <img src="profile/<?php echo isset($rowp['playerImg']) ? $rowp['playerImg'] : '../images/default player image.webp' ?>" alt="Image not loaded">
                                 <h6><?php echo $rowp['playerName']; ?></h6>
                                 <h6><?php echo $rowp['playerIgn']; ?></h6>
                                 <h6>
