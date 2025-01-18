@@ -26,7 +26,7 @@ ob_start();
         <div class="main">
 <div class="loginWrapper">
 <div class="loginImage">
-                    <img src="images/DISPEL.jpg" alt="Login Banner">
+                    <img src="images/DISPELS.jpg" alt="Login Banner">
                 </div>
      <!-- Create Form -->
      <div class="Form">
@@ -58,7 +58,7 @@ ob_start();
                     </div>
                 </form>
                 <div class="term">
-<p>Check Our  <a href="terms.php" target="_blank"  >Terms and Conditions</a> for how your data is being handled </p>
+<p>Check Our&nbsp;<a href="terms.php" target="_blank"  > Terms and Conditions </a>&nbsp; for how your data is being handled </p>
                    
                 </div>
                 <div class="createLogin">

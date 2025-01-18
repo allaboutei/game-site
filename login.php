@@ -28,7 +28,7 @@ ob_start();
             <div class="loginWrapper">
                 <!-- Image Section -->
                 <div class="loginImage">
-                    <img src="images/DISPEL.jpg" alt="Login Banner">
+                    <img src="images/DISPELS.jpg" alt="Login Banner">
                 </div>
                 <!-- Form Section -->
                 <div class="Form">

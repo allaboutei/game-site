@@ -470,12 +470,13 @@ ob_start();
             </div>
 
         </div>
-        <div class="footer">
+        
+    </div>
+    <div class="footer">
             <?php
             include("footer.php");
             ?>
         </div>
-    </div>
     <?php
     ob_end_flush();
     ?>

@@ -58,7 +58,7 @@ if (isset($_POST['btnReport'])) {
 
         ?>
         <div class="main">
-
+<br>
             <div class="newsExpandedContainer">
                 <?php
                 $row = $result->fetch_assoc();
@@ -140,6 +140,7 @@ if (isset($_POST['btnReport'])) {
 
                     </form>
                 </div>
+                <br>
                 <div class="react">
                     <div class="icon">
                         <p><i class="fa-solid fa-heart"></i> &nbsp; <?php echo isset($rowlike['No4Likes']) ? $rowlike['No4Likes'] : "0" ?></p>
@@ -154,6 +155,7 @@ if (isset($_POST['btnReport'])) {
 
             } else {
             ?>
+            
             <h5>Login to react or report</h5>
                 <div class="react">
                     <div class="icon">
@@ -174,6 +176,13 @@ if (isset($_POST['btnReport'])) {
 
 
     </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     <div class="footer">
         <?php
         include("footer.php") ?>

@@ -17,7 +17,7 @@ ob_start();
 
     <script src="https://kit.fontawesome.com/cf47e7251d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="favicon.ico" type="image/x-icon"> 
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -28,6 +28,32 @@ ob_start();
             ?>
         </div>
         <div class="main">
+            <?php
+            if (isset($_POST["btnSubmit"])) {
+                $name = $_POST["tourname"];
+                $desc = $_POST["tourdesc"];
+                $prize = $_POST["tourprize"];
+                $loc = $_POST["tourloc"];
+                $sdate = $_POST["tourstart"];
+                $edate = $_POST["tourend"];
+                if (isset($_FILES["nfile"]) && $_FILES["nfile"]["error"] == 0) {
+                    $filename = $_FILES["nfile"]["name"];
+                    $filepatch = $_FILES["nfile"]["tmp_name"];
+                } else {
+                    $filename = "";
+                }
+
+                $sql = "INSERT INTO tbl_tour (tourId,tourName,tourDesc,tourPrizepool,tourLocation,tourStartDate,tourEndDate,tourImage,status) VALUES (NULL,'$name','$desc','$prize','$loc','$sdate','$edate','$filename','1')";
+
+                if ($conn->query($sql) == True) {
+                    move_uploaded_file($filepatch, "uploadfiles/tourimages" . $filename);
+                    echo "<h3 class='noti'>Tournament uploaded successfully</h3>";
+                    echo "<div class='loader mg0Auto'></div>";
+
+                    header("location:tournament.php");
+                }
+            }
+            ?>
             <div class="formBtnModule <?php if (isset($_SESSION['userRoleId'])) {
                                             if ($_SESSION['userRoleId'] == 0) {
                                                 echo "blockContent";
@@ -52,24 +78,7 @@ ob_start();
                 <div class="register heading">
                     <h4>Upload the Tournaments</h4>
                 </div>
-                <?php
-                if (isset($_POST["btnSubmit"])) {
-                    $name = $_POST["tourname"];
-                    $desc = $_POST["tourdesc"];
-                    $prize = $_POST["tourprize"];
-                    $loc = $_POST["tourloc"];
-                    $sdate = $_POST["tourstart"];
-                    $edate = $_POST["tourend"];
 
-
-                    $sql = "INSERT INTO tbl_tour (tourId,tourName,tourDesc,tourPrizepool,tourLocation,tourStartDate,tourEndDate,status) VALUES (NULL,'$name','$desc','$prize','$loc','$sdate','$edate','1')";
-
-                    if ($conn->query($sql) == True) {
-                        echo "Tournament uploaded successfully";
-                        header("location:tournament.php");
-                    }
-                }
-                ?>
                 <form action="#" method="POST" enctype="multipart/form-data">
                     <div class="register">
                         <label class="labelTag">Tournament Name</label>
@@ -95,7 +104,10 @@ ob_start();
                         <label class="labelTag">End Date</label>
                         <input name="tourend" type="Date" class="form-control">
                     </div>
-
+                    <div class="register">
+                        <label class="labelTag">Upload Tournament Logo</label>
+                        <input name="nfile" type="file" class="form-control uploadTag">
+                    </div>
                     <div class="register">
                         <input name="btnSubmit" type="submit" class="btn btn-primary" value="Upload">
                     </div>
@@ -104,9 +116,9 @@ ob_start();
             </div>
             <br>
             <div class="feed">
-            <div class="headings">
-    <h1>TOURNAMENTS</h1>
-</div>
+                <div class="headings">
+                    <h1>TOURNAMENTS</h1>
+                </div>
                 <div class="tourContainer">
                     <?php
                     $sql = "SELECT * FROM tbl_tour";
@@ -120,9 +132,9 @@ ob_start();
                         ?>
                             <div class="tourCard">
                                 <img src="<?php if ($row['tourImage'] == NULL) {
-                                                echo 'images/DISPEL.jpg';
+                                                echo 'images/DISPELS.jpg';
                                             } else {
-                                                echo $row['tourImage'];
+                                                echo "uploadfiles/tourimages".$row['tourImage'];
                                             }  ?>" alt="Image Not Uploaded">
                                 <div class="tourInfo">
 

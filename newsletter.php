@@ -26,6 +26,30 @@ ob_start(); ?>
             ?>
         </div>
         <div class="main">
+        <?php
+                if (isset($_POST["btnUpload"])) {
+
+                    $newshead = htmlspecialchars($_POST["nheading"]);
+                    $newsbody = htmlspecialchars($_POST["nbody"]);
+
+                    if (isset($_FILES["nfile"]) && $_FILES["nfile"]["error"] == 0) {
+                        $filename = $_FILES["nfile"]["name"];
+                        $filepatch = $_FILES["nfile"]["tmp_name"];
+                    } else {
+                        $filename = "";
+                    }
+                    $sql = "INSERT INTO tbl_news(newsId,newsHeading,newsBody,newsFootage) VALUES (NULL,'$newshead','$newsbody','$filename')";
+                    if ($conn->query($sql) == True) {
+                        echo "News Inserted Successfully";
+                        move_uploaded_file($filepatch, "uploadfiles/" . $filename);
+                        header("location:newsletter.php");
+                        exit();
+                    }
+                }
+
+
+
+                ?>
             <div class="formBtnModule <?php if (isset($_SESSION['userRoleId'])) {
                 if ($_SESSION['userRoleId'] == 0) {
                     echo "blockContent";
@@ -52,30 +76,7 @@ ob_start(); ?>
                 <div class="register heading">
                     <h4>Upload the news</h4>
                 </div>
-                <?php
-                if (isset($_POST["btnUpload"])) {
 
-                    $newshead = $_POST["nheading"];
-                    $newsbody = $_POST["nbody"];
-
-                    if (isset($_FILES["nfile"]) && $_FILES["nfile"]["error"] == 0) {
-                        $filename = $_FILES["nfile"]["name"];
-                        $filepatch = $_FILES["nfile"]["tmp_name"];
-                    } else {
-                        $filename = "";
-                    }
-                    $sql = "INSERT INTO tbl_news(newsId,newsHeading,newsBody,newsFootage) VALUES (NULL,'$newshead','$newsbody','$filename')";
-                    if ($conn->query($sql) == True) {
-                        echo "News Inserted Successfully";
-                        move_uploaded_file($filepatch, "uploadfiles/" . $filename);
-                        header("location:newsletter.php");
-                        exit();
-                    }
-                }
-
-
-
-                ?>
                 <form action="#" method="POST" enctype="multipart/form-data">
                     <div class="register">
                         <label for="exampleFormControlInput1" class="labelTag">News Heading</label>

@@ -1,6 +1,6 @@
 
   <a class="logo" href="index.php">
-    <img src="images/DISPEL.jpg" alt="DISPEL Logo">
+    <img src="images/DISPELS.jpg" alt="DISPEL Logo">
   </a>
   <nav class="navibar">
     <ul>

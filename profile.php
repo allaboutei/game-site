@@ -30,12 +30,27 @@
         if (isset($_POST['btnAccept'])) {
             $pid = $_POST['playerId'];
             $uid = $_POST['userId'];
-            $sql1 = "UPDATE tbl_allocate SET status='accepted',joinedat=NOW() WHERE playerId='$pid'";
+            $aid = $_POST['allocateId'];
+            $sql1 = "UPDATE tbl_allocate SET status='accepted',joinedat=NOW() WHERE playerId='$pid' AND id='$aid' ";
             $result1 = $conn->query($sql1);
-            $sql2 = "UPDATE tbl_player SET status ='1'";
+            $sql2 = "UPDATE tbl_player SET status ='1' WHERE playerId='$pid'";
             $conn->query($sql2);
             echo "<div class='loader mg0Auto'></div>";
             echo "<h3 class='noti'>Successfully Joined</h3>";
+            header("location:profile.php?id=" . $uid);
+            exit();
+        }
+        if (isset($_POST['btnReject'])) {
+            $pid = $_POST['playerId'];
+            $uid = $_POST['userId'];
+            $aid = $_POST['allocateId'];
+            $sql1 = "DELETE FROM tbl_allocate
+             WHERE playerId='$pid' AND id='$aid' ";
+            $result1 = $conn->query($sql1);
+            $sql2 = "UPDATE tbl_player SET status  ='0' WHERE playerId='$pid'";
+            $conn->query($sql2);
+            echo "<div class='loader mg0Auto'></div>";
+            echo "<h3 class='noti'>Rejected</h3>";
             header("location:profile.php?id=" . $uid);
             exit();
         }
@@ -93,6 +108,7 @@
                 </div>
             </div>
             <div class="playerStatus">
+              
                 <h3>Pending Team Invitations</h3>
                 <?php
                 $sql = "SELECT * FROM tbl_allocate ta JOIN tbl_player tp ON ta.playerId=tp.playerId WHERE ta.playerId='$playerid' AND ta.status='pending'";
@@ -109,8 +125,10 @@
                     <h4>Invited At : <?php echo date("g:i A l: F d, Y", strtotime($row["joinedat"])); ?></h4>
                     <form action="#" method="POST">
                         <input type="hidden" name="playerId" value="<?php echo $row['playerId']; ?>">
+                        <input type="hidden" name="allocateId" value="<?php echo $row['id']; ?>">
                         <input type="hidden" name="userId" value="<?php echo $uid ?>">
                         <input class="btn btn-success" type="submit" name="btnAccept" value="Accept">
+                        <input class="btn btn-danger" type="submit" name="btnReject" value="Reject">
                     </form>
                 <?php
                 } else {

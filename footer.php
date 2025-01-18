@@ -23,9 +23,9 @@
     <!-- Contact Section -->
     <div class="footer-contact">
       <h4>Contact Us</h4>
-      <p><i class="fa-solid fa-envelope"></i> contact@dispel.com</p>
-      <p><i class="fa-solid fa-phone"></i> +44 123 456 7890</p>
-      <p><i class="fa-solid fa-location-dot"></i> 123 eSports Ave, London, UK</p>
+      <p><i class="fa-solid fa-envelope"></i>&nbsp; contact@dispel.com</p>
+      <p><i class="fa-solid fa-phone"></i>&nbsp;  +44 123 456 7890</p>
+      <p><i class="fa-solid fa-location-dot"></i>&nbsp;  123 eSports Ave, London, UK</p>
     </div>
 
     <!-- Social Media Section -->

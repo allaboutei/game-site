@@ -62,13 +62,14 @@ ob_start();
                         </div>
                         <div class="teamR">
                             <h5>Created At: <?php echo date("l: F d, Y", strtotime($rowt["createdat"])); ?> </h5>
-                            <?php $sql = "SELECT u.userName 
+                            <?php $sql = "SELECT u.userName,u.userId 
                     FROM tbl_user u
                     JOIN tbl_captain c ON u.userId=c.userId
                     WHERE c.teamId='$id'";
                             $result = $conn->query($sql);
                             if ($result->num_rows > 0) {
                                 $row = $result->fetch_assoc();
+                    
                             }
                             ?>
                             <h5>Captain: <?php echo  isset($row['userName']) ? $row['userName'] : "No captain assigned"; ?></h5>
@@ -111,7 +112,7 @@ ob_start();
                                    <img src="profile/<?php echo isset($row['playerImg']) ? $row['playerImg'] : '../images/default player image.webp' ?>" alt="Image not loaded">
                                     <?php
                                     ?>
-                                    <h6><?php echo $row['playerName']; ?>
+                                    <h6><?php echo $row['playerName'];  ?>
 
                                     </h6>
                                     <h6><?php echo $row['playerIgn']; ?></h6>
@@ -302,6 +303,9 @@ WHERE
                         </div>
                 <?php
                     }
+                }
+                else{
+                    echo "<h6>No recent matches found</h6>";
                 }
 
 

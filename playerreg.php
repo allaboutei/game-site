@@ -16,17 +16,17 @@ ob_start();
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/cf47e7251d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="favicon.ico" type="image/x-icon"> 
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 
 <body>
     <div class="container">
-    
+
         <div class="header">
             <?php include("header.php"); ?>
         </div>
         <div class="main">
-            
+
             <div class="formBtnModule <?php if (!isset($_SESSION['userRoleId']) || $_SESSION['userRoleId'] == 1) {
                                             echo 'blockContent';
                                         } ?>">
@@ -34,7 +34,7 @@ ob_start();
                 <i class="fa-solid fa-scroll"></i>
             </div>
             <?php
-            
+
             // Update player data
             if (isset($_POST["btnUpdate"])) {
                 $editId = $_POST["editId"];
@@ -43,8 +43,8 @@ ob_start();
                 $igname = $_POST["pign"];
                 $igid = $_POST["pigid"];
                 $pos = $_POST["ppos"];
-               
-                
+
+
                 $sqlUpdate = "UPDATE tbl_player 
         SET playerFblink='$link', playerPhno='$phno', playerIgn='$igname', playerIgid='$igid', roleId='$pos'
         WHERE playerId='$editId'";
@@ -59,11 +59,11 @@ ob_start();
                     header("refresh:1,url=playerreg.php");
                 }
             }
-               
 
 
 
-            
+
+
             // Insert player data
             if (isset($_POST["btnSubmit"])) {
                 $name = $_SESSION["userName"];
@@ -74,30 +74,30 @@ ob_start();
                 $igid = $_POST["pigid"];
                 $pos = $_POST["ppos"];
                 $uid = $_SESSION['userId'];
-                
-                    $sqlCheck = "SELECT * FROM tbl_player WHERE userId='$uid'";
-                    $result = $conn->query($sqlCheck);
-                    if ($result->num_rows > 0) {
-                        echo "<i class='fa-solid fa-triangle-exclamation'></i>";
+
+                $sqlCheck = "SELECT * FROM tbl_player WHERE userId='$uid'";
+                $result = $conn->query($sqlCheck);
+                if ($result->num_rows > 0) {
+                    echo "<i class='fa-solid fa-triangle-exclamation'></i>";
+                    header("refresh:1,url=playerreg.php");
+                    echo "Error! You Cannot Register with the same account twice";
+                    exit();
+                } else {
+                    $sqlInsert = "INSERT INTO tbl_player (playerId, userId, playerName,playerImg, playerFblink, playerEmail, playerPhno, playerIgn, playerIgid, roleId, status)
+                          VALUES (NULL, '$uid', '$name',NULL, '$link', '$email', '$phno', '$igname', '$igid', '$pos', '0')";
+                    if ($conn->query($sqlInsert) === true) {
+                        echo "<div class='loader mg0Auto'></div>";
                         header("refresh:1,url=playerreg.php");
-                        echo "Error! You Cannot Register with the same account twice";
+                        echo "Record inserted successfully";
                         exit();
                     } else {
-                        $sqlInsert = "INSERT INTO tbl_player (playerId, userId, playerName,playerImg, playerFblink, playerEmail, playerPhno, playerIgn, playerIgid, roleId, status)
-                          VALUES (NULL, '$uid', '$name',NULL, '$link', '$email', '$phno', '$igname', '$igid', '$pos', '0')";
-                        if ($conn->query($sqlInsert) === true) {
-                            echo "<div class='loader mg0Auto'></div>";
-                            header("refresh:1,url=playerreg.php");
-                            echo "Record inserted successfully";
-                            exit();
-                        } else {
-                            echo "<div>Register error!</div>";
+                        echo "<div>Register error!</div>";
                         echo "<i class='fa-solid fa-triangle-exclamation'></i>";
                         header("refresh:1,url=playerreg.php");
-                        }
                     }
                 }
-            
+            }
+
             // Delete player data
             if (isset($_GET["deleteid"])) {
                 $delid = $_GET["deleteid"];
@@ -110,7 +110,7 @@ ob_start();
                         echo "<div class='loader mg0Auto'></div>";
                         header("refresh:1,url=playerreg.php");
                         exit();
-                    }else{
+                    } else {
                         echo "<div>Error deletion!</div>";
                         echo "<i class='fa-solid fa-triangle-exclamation'></i>";
                         header("refresh:1,url=playerreg.php");
@@ -130,7 +130,7 @@ ob_start();
                 $rowEdit = $resultEdit->fetch_assoc();
             }
             ?>
-            
+
             <div class="content">
                 <div class="register heading">
                     <h4>Register Here</h4>
@@ -188,35 +188,42 @@ ob_start();
                     <?php } ?>
                 </form>
                 <?php
-                $sql = "SELECT * FROM tbl_player";
+                $sql = "SELECT 
+               p.*, r.roleName, t.teamName, t.teamImage, t.teamId, a.status AS allocationStatus 
+           FROM tbl_player p
+           LEFT JOIN tbl_role r ON p.roleId = r.roleId
+           LEFT JOIN tbl_allocate a ON p.playerId = a.playerId
+           LEFT JOIN tbl_team t ON a.teamId = t.teamId
+           ORDER BY 
+               p.playerId DESC";
+
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0 && !isset($_GET['editid'])) {
                 ?>
             </div>
             <div class="feed">
-                <?php 
-                if (!isset($_SESSION['userRoleId'])) {
-                    echo "<h3>Login to register as a player</h3>
+                <?php
+                    if (!isset($_SESSION['userRoleId'])) {
+                        echo "<h3>Login to register as a player</h3>
                           <a href='login.php' class='btn btn-success'>Go To Login</a>";
-                } elseif ($_SESSION['userRoleId'] == 0) {
-                    echo "<h3>Ready to compete in the matches? Fill out the form Now!</h3>";
-                } else {
-                    echo "<h3>Welcome Admin!</h3>";
-                }
+                    } elseif ($_SESSION['userRoleId'] == 0) {
+                        echo "<h3>Ready to compete in the matches? Fill out the form Now!</h3>";
+                    } else {
+                        echo "<h3>Welcome Admin!</h3>";
+                    }
                 ?>
-            <div class="headings">
+                <div class="headings">
                     <h1>PLAYERS</h1>
                 </div>
                 <strong>Registered Players</strong>
                 <table>
                     <tr>
-                        <th>ID</th>
+
                         <th>Player Name</th>
                         <th>Player Facebook Link</th>
                         <th>Email</th>
-                        <th>Phone Number</th>
                         <th>In Game Name</th>
-                        <th>In Game ID</th>
+                        <th>Current Team</th>
                         <th>Player Role</th>
                         <?php if ($role == "admin") {
                             echo "<th>Action</th>";
@@ -233,9 +240,7 @@ ob_start();
 
 
                                     ?>">
-                            <td>
-                                <?php echo $row["playerId"]; ?>
-                            </td>
+
                             <td>
                                 <?php echo $row["playerName"]; ?>
                             </td>
@@ -246,22 +251,27 @@ ob_start();
                                 <?php echo $row["playerEmail"]; ?>
                             </td>
                             <td>
-                                <?php echo $row["playerPhno"]; ?>
-                            </td>
-                            <td>
                                 <?php echo $row["playerIgn"]; ?>
                             </td>
-                            <td>
-                                <?php echo $row["playerIgid"]; ?>
+                            <td class="d-flex flex-column w-100">
+                                <?php 
+                                if ($row['teamId'] === NULL) {
+                                    ?>
+                <img class="whImg" src="images/DISPELS.jpg" alt="">
+
+                                    <?php
+                                    echo "Team not joined";
+                                } else {
+                                    ?>
+                                  <a href="allocate_player.php?id=<?php echo $row['teamId'] ?>"><img class="whImg" src="uploadfiles/<?php echo $row['teamImage'] ?>" alt="">
+                                </a>
+                                <?php
+                                    echo $row["teamName"];
+                                }
+                                ?>
                             </td>
                             <td>
-                                <?php
-                                $rolename = $row["roleId"];
-                                $ssql = "SELECT roleName FROM tbl_role WHERE roleId=$rolename";
-                                $res = $conn->query($ssql);
-                                $roww = $res->fetch_assoc();
-                                echo $roww["roleName"];
-                                ?>
+                                <?php echo $row["roleName"]; ?>
                             </td>
                             <?php if (!isset($role) || $role == "user") {
                                 echo "";
@@ -269,11 +279,12 @@ ob_start();
                             ?>
                                 <td>
                                     <div class="action">
-                                    <a class="btn btn-primary" href="playerreg.php?editid=<?php echo $row['playerId']; ?>">Edit</a>
-                                    <a class="btn btn-danger" href="playerreg.php?deleteid=<?php
-                                                                    echo $row['playerId']; ?>">Delete</a>
-                               
-                               </div></td>
+                                        <a class="btn btn-primary" href="playerreg.php?editid=<?php echo $row['playerId']; ?>">Edit</a>
+                                        <a class="btn btn-danger" href="playerreg.php?deleteid=<?php
+                                                                                                echo $row['playerId']; ?>">Delete</a>
+
+                                    </div>
+                                </td>
                             <?php
                             } ?>
                         </tr>
