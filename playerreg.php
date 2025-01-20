@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
 <?php
 $currentPage = 'playerreg';
 include_once("config/regdbconnect.php");
@@ -7,6 +5,9 @@ session_start();
 isset($_SESSION['role']) ? $role = $_SESSION['role'] : $role = "Not Logged In";
 ob_start();
 ?>
+<!DOCTYPE html>
+<html lang="en">
+
 
 <head>
     <meta charset="UTF-8">
@@ -220,8 +221,6 @@ ob_start();
                     <tr>
 
                         <th>Player Name</th>
-                        <th>Player Facebook Link</th>
-                        <th>Email</th>
                         <th>In Game Name</th>
                         <th>Current Team</th>
                         <th>Player Role</th>
@@ -244,12 +243,7 @@ ob_start();
                             <td>
                                 <?php echo $row["playerName"]; ?>
                             </td>
-                            <td>
-                                <?php echo $row["playerFblink"]; ?>
-                            </td>
-                            <td>
-                                <?php echo $row["playerEmail"]; ?>
-                            </td>
+                           
                             <td>
                                 <?php echo $row["playerIgn"]; ?>
                             </td>
@@ -257,13 +251,13 @@ ob_start();
                                 <?php 
                                 if ($row['teamId'] === NULL) {
                                     ?>
-                <img class="whImg" src="images/DISPELS.jpg" alt="">
+                <a style="margin-bottom: 5px;" href=""><img class="whImg" src="images/DISPELS.jpg" alt=""></a>
 
                                     <?php
                                     echo "Team not joined";
                                 } else {
                                     ?>
-                                  <a href="allocate_player.php?id=<?php echo $row['teamId'] ?>"><img class="whImg" src="uploadfiles/<?php echo $row['teamImage'] ?>" alt="">
+                                  <a style="margin-bottom: 5px;" href="allocate_player.php?id=<?php echo $row['teamId'] ?>"><img class="whImg" src="uploadfiles/<?php echo $row['teamImage'] ?>" alt="">
                                 </a>
                                 <?php
                                     echo $row["teamName"];

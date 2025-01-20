@@ -1,4 +1,8 @@
-
+<div class="hamburgerMenuContainer">
+    <div class="hamburger line1"></div>
+    <div class="hamburger line2"></div>
+    <div class="hamburger line3"></div>
+</div>
   <a class="logo" href="index.php">
     <img src="images/DISPELS.jpg" alt="DISPEL Logo">
   </a>
@@ -26,4 +30,33 @@
       </div>
     <?php } ?>
   </div>
+  <script>
+    // humburger menu
+    const hamburgerMenuContainerTag = document.querySelector(
+        ".hamburgerMenuContainer"
+    );
+    console.log(hamburgerMenuContainerTag);
+    const naviBarTag = document.querySelector(".navibar");
+    const hamburgerLine1Tag = document.querySelector(".line1");
+    const hamburgerLine2Tag = document.querySelector(".line2");
+    const hamburgerLine3Tag = document.querySelector(".line3");
 
+    hamburgerMenuContainerTag.addEventListener("click", () => {
+        if(hamburgerMenuContainerTag.classList.contains("isOpened"))
+    {
+        naviBarTag.style.display="none";
+            hamburgerLine2Tag.classList.remove("hideLine2");
+            hamburgerLine1Tag.classList.remove("rotatePlus45Deg");
+            hamburgerLine3Tag.classList.remove("rotateMinus45Deg");
+            hamburgerMenuContainerTag.classList.remove("isOpened");
+        }
+    else {
+            hamburgerLine2Tag.classList.add("hideLine2");
+            hamburgerLine1Tag.classList.add("rotatePlus45Deg");
+            hamburgerLine3Tag.classList.add("rotateMinus45Deg");
+            hamburgerMenuContainerTag.classList.add("isOpened");
+            naviBarTag.style.display="flex";
+        }
+    }
+    );
+</script>

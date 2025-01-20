@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
 <?php
 $currentPage = 'index';
 include_once "config/regdbconnect.php";
@@ -11,6 +9,9 @@ if (isset($_SESSION['isCaptain'])) {
     echo "";
 }
 ?>
+<!DOCTYPE html>
+<html lang="en">
+
 
 <head>
     <meta charset="UTF-8">
@@ -21,7 +22,7 @@ if (isset($_SESSION['isCaptain'])) {
 
     <script src="https://kit.fontawesome.com/cf47e7251d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="favicon.ico" type="image/x-icon"> 
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 
 </head>
 
@@ -32,23 +33,22 @@ if (isset($_SESSION['isCaptain'])) {
             include("header.php");
             ?>
         </div>
-        
+
         <div class="main ">
-        
-        <br>
+
+            <br>
 
             <?php
 
             if (!isset($_SESSION['userRoleId'])) {
             ?>
-
-<div class="slider" id="slider">
-                <div class="slides"></div>
-                <div id="navigation-manual" class="navigation-manual"></div>
-            </div>
-
-
-
+<h3>Welcome To DISPELS eSports Web Platform</h3>
+<a href='login.php' class='btn btn-success'>Go To Login</a>
+                <div class="slider" id="slider">
+                    <div class="slides"></div>
+                    <div id="navigation-manual" class="navigation-manual"></div>
+                </div>
+                
 
             <?php
             } elseif (isset($_SESSION['userRoleId']) && $_SESSION['userRoleId'] == 1) {
@@ -136,13 +136,13 @@ if (isset($_SESSION['isCaptain'])) {
                         <img src="images/DISPELS.jpg" alt="Image Not Found">
                     </div>
                 </div>
-                <?php
+            <?php
             } else {
-                ?>
+            ?>
                 <div class="slider" id="slider">
-                <div class="slides"></div>
-                <div id="navigation-manual" class="navigation-manual"></div>
-            </div>
+                    <div class="slides"></div>
+                    <div id="navigation-manual" class="navigation-manual"></div>
+                </div>
                 <?php
                 $uid = $_SESSION['userId'];
                 $sql = "SELECT tt.teamId,tt.teamName,tt.teamImage from tbl_team tt LEFT JOIN tbl_captain tc ON tt.teamId=tc.teamId  WHERE userId='$uid'";
@@ -176,12 +176,11 @@ if (isset($_SESSION['isCaptain'])) {
     ob_end_flush();
     ?>
     <script>
-        const images = [
-            {
+        const images = [{
                 src: "sliderImages/sliderimg1.jpg",
                 alt: "Slide 1",
                 link: "#"
-            },{
+            }, {
                 src: "sliderImages/sliderimg2.jpg",
                 alt: "Slide 2",
                 link: "#"

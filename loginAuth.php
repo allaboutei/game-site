@@ -73,36 +73,39 @@ if (isset($_POST["btnLogin"])) {
     $password = $_POST['upw'];
 
     $sql = "SELECT * FROM tbl_user WHERE userName='$name' AND userPassword=md5('$password') AND status='1'";
-    $result = $conn->query($sql);
-    
-    if ($result->num_rows > 0) {
-        session_start();
-        $row = $result->fetch_assoc();
-        $authType = $row['userRoleId'];
-        $userid = $row['userId'];
+$result = $conn->query($sql);
 
-        if ($authType == 0) {
-            $_SESSION['userName'] = $name;
-            $_SESSION['userRoleId'] = $authType;
-            $_SESSION['userId'] = $userid;
-            $_SESSION['role'] = "user";
-            $_SESSION['userEmail'] = $email;
-            header("location:index.php");
-            exit();
-        } else {
-            $_SESSION['userName'] = $name;
-            $_SESSION['userRoleId'] = $authType;
-            $_SESSION['userId'] = $userid;
-            $_SESSION['role'] = "admin";
-            $_SESSION['userEmail'] = $email;
-            header("location:index.php");
-            exit();
-        }
+if ($result->num_rows > 0) {
+    session_start();
+    $row = $result->fetch_assoc();
+    $authType = $row['userRoleId'];
+    $userid = $row['userId'];
+    $email = $row['userEmail']; // Fetch email from the database result
+
+    if ($authType == 0) {
+        $_SESSION['userName'] = $name;
+        $_SESSION['userRoleId'] = $authType;
+        $_SESSION['userId'] = $userid;
+        $_SESSION['role'] = "user";
+        $_SESSION['userEmail'] = $email;
+        header("location:index.php");
+        exit();
     } else {
-        $_SESSION['errors'] = "Invalid username or password.";
-        header("location:login.php");
+        $_SESSION['userName'] = $name;
+        $_SESSION['userRoleId'] = $authType;
+        $_SESSION['userId'] = $userid;
+        $_SESSION['role'] = "admin";
+        $_SESSION['userEmail'] = $email;
+        header("location:index.php");
         exit();
     }
+} else {
+    session_start(); // Ensure the session is started if login fails
+    $_SESSION['errors'] = "Invalid username or password.";
+    header("location:login.php");
+    exit();
+}
+
 }
 
 $conn->close();

@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
 <?php
 $currentPage = 'match';
 include_once("config/regdbconnect.php");
 session_start();
 ob_start();
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -56,6 +57,7 @@ ob_start();
                 <button class="fillForm fillBtn">Fill Form </button>
                 <i class="fa-solid fa-scroll"></i>
             </div>
+            <br>
             <div class="content <?php if (isset($_SESSION['userRoleId'])) {
                                     if ($_SESSION['userRoleId'] == 0) {
                                         echo "blockContent";
@@ -230,7 +232,7 @@ ob_start();
                 </form>
             </div>
 
-<br>
+
             <div class="feed">
                 <div class="headings">
                     <h1>MATCHES</h1>
@@ -470,13 +472,13 @@ ob_start();
             </div>
 
         </div>
-        
-    </div>
-    <div class="footer">
+        <div class="footer">
             <?php
             include("footer.php");
             ?>
         </div>
+    </div>
+   
     <?php
     ob_end_flush();
     ?>

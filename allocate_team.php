@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
 <?php
 include_once "config/regdbconnect.php";
 ob_start();
 session_start();
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -39,6 +40,9 @@ session_start();
                 }
             }
             ?>
+           <div class="backButtonContainer">
+                <button class="backButton" onclick="history.back()"><i class="fa-solid fa-circle-left"></i></button>
+            </div>
             <div class="allocate_team">
                 <h5><?php echo $row['tourName'] ?></h5>
                 <p><strong>Location : &nbsp;</strong><?php echo $row['tourLocation']  ?></p>
@@ -75,17 +79,18 @@ session_start();
                                 <?php echo $row1['teamName']; ?>
 
                                 <div class="teamI">
-
+<h4><hr>Players <hr></h4>
                                     <?php
                                     if (isset($row1['teamId'])) {
                                         $teamid = $row1['teamId'];
-                                        $sql3 = "SELECT tp.* FROM tbl_player tp
+                                        $sql3 = "SELECT tp.*,tr.* FROM tbl_player tp
                                                     LEFT JOIN tbl_allocate ta ON tp.playerId=ta.playerId
+                                                    JOIN tbl_role tr ON tp.roleId=tr.roleId 
                                                     WHERE teamId='$teamid'";
                                         $result3 = $conn->query($sql3);
                                         if ($result3 && $result3->num_rows > 0) {
                                             while ($row3 = $result3->fetch_assoc()) {
-                                                echo $row3['playerName'] . "<br>";
+                                                echo $row3['playerIgn']."  (".$row3['roleName']. ")<br>";
                                             }
                                         }
                                     } else {

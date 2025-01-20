@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
 <?php
 $currentPage = 'login';
 include_once("config/regdbconnect.php");
 session_start();
 ob_start();
 ?>
+<!DOCTYPE html>
+<html lang="en">
+
 
 <head>
     <meta charset="UTF-8">

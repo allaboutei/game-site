@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
 <?php
 include_once("config/regdbconnect.php");
 session_start();
@@ -28,6 +26,9 @@ if (isset($_POST['btnReport'])) {
     $conn->query($sql1);
 }
 ?>
+<!DOCTYPE html>
+<html lang="en">
+
 
 <head>
     <meta charset="UTF-8">
@@ -58,7 +59,9 @@ if (isset($_POST['btnReport'])) {
 
         ?>
         <div class="main">
-<br>
+        <div class="backButtonContainer">
+                <button class="backButton" onclick="history.back()"><i class="fa-solid fa-circle-left"></i></button>
+            </div>
             <div class="newsExpandedContainer">
                 <?php
                 $row = $result->fetch_assoc();
@@ -174,19 +177,13 @@ if (isset($_POST['btnReport'])) {
 
         </div>
 
-
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="footer">
+        <div class="footer">
         <?php
         include("footer.php") ?>
     </div>
+    </div>
+   
+    
     </div>
     <script src="script.js"></script>
 </body>

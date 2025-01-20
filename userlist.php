@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
 <?php
 $currentPage = 'members';
 session_start();
@@ -7,6 +5,9 @@ include_once("config/regdbconnect.php");
 $captain_team_id = null;
 ob_start();
 ?>
+<!DOCTYPE html>
+<html lang="en">
+
 
 <head>
     <meta charset="UTF-8">

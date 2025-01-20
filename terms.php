@@ -1,10 +1,11 @@
+<?php $currentPage = 'privacy and policy';
+    session_start();
+    ob_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <?php $currentPage = 'privacy and policy';
-    session_start();
-    ob_start(); ?>
+   
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -22,7 +23,7 @@
             <?php include("header.php"); ?>
         </div>
 
-<div class="term">
+<div class="Term">
         <h2 class="mg0Auto"  >Privacy Policy</h2>
         <p>Last updated: 16 September, 2022</p>
         <p>This Privacy Policy outlines Our policies and procedures regarding the collection, use, and disclosure of Your information when You use our eSports platform. It also informs You about Your privacy rights and how the law protects You.</p>
@@ -40,7 +41,7 @@
             <li><strong>Service</strong> refers to the eSports website and related services provided.</li>
             <li><strong>Service Provider</strong> refers to third-party companies or individuals employed by Us to assist in delivering the Service, including managing data or analyzing website performance.</li>
             <li><strong>Usage Data</strong> refers to data collected automatically, such as the duration of gameplay sessions or navigation through the website.</li>
-            <li><strong>Website</strong> refers to the eSports platform, accessible from <a href="http://localhost:8081/gameSite/index.php">www.dispelgamesite.com</a></li>
+            <li><strong>Website</strong> refers to the eSports platform, accessible from <a href="http://dispelsesports.mygamesonline.org/">Go To Site</a></li>
             <li><strong>You</strong> refers to the user of the Service, whether as an individual or on behalf of a company or other entity.</li>
         </ul>
         <h3>Types of Data Collected</h3>

@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
 <?php
 $currentPage = 'tournament';
 session_start();
@@ -7,6 +5,9 @@ include_once("config/regdbconnect.php");
 $currentDate = date("Y-m-d");
 ob_start();
 ?>
+<!DOCTYPE html>
+<html lang="en">
+
 
 <head>
     <meta charset="UTF-8">

@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
 <?php
 $currentPage = 'teamreg';
 include_once("config/regdbconnect.php");
@@ -7,6 +5,9 @@ session_start();
 ob_start();
 isset($_SESSION['role']) ? $role = $_SESSION['role'] : $role = "Not Logged In";
 ?>
+<!DOCTYPE html>
+<html lang="en">
+
 
 <head>
     <meta charset="UTF-8">
@@ -112,6 +113,7 @@ isset($_SESSION['role']) ? $role = $_SESSION['role'] : $role = "Not Logged In";
                 <button class="fillForm fillBtn">Fill Form </button>
                 <i class="fa-solid fa-scroll"></i>
             </div>
+            <br>
             <div class="content <?php if (isset($_SESSION['userRoleId'])) {
                                     if ($_SESSION['userRoleId'] == 0) {
                                         echo "blockContent";
