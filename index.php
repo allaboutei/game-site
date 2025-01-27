@@ -126,7 +126,7 @@ if (isset($_SESSION['isCaptain'])) {
                         <div class="panelCard">
                             <h4>Matches</h4>
                             <?php
-                            $sql = "SELECT COUNT(matchId) FROM tbl_match";
+                            $sql = "SELECT COUNT(matchId) FROM tbl_match WHERE matchDate < CURDATE()";
                             $resultNews = $conn->query($sql);
                             $rowNews = $resultNews->fetch_assoc();
                             ?>
