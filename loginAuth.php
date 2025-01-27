@@ -1,6 +1,5 @@
 <?php
 include_once("config/regdbconnect.php");
-session_start();
 
 if (isset($_POST["btnCreate"])) {
     $createname = $_POST['cname'];
@@ -80,7 +79,7 @@ if ($result->num_rows > 0) {
     $row = $result->fetch_assoc();
     $authType = $row['userRoleId'];
     $userid = $row['userId'];
-    $email = $row['userEmail']; // Fetch email from the database result
+    $email = $row['userEmail']; 
 
     if ($authType == 0) {
         $_SESSION['userName'] = $name;

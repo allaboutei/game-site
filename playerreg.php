@@ -208,7 +208,7 @@ ob_start();
                         echo "<h3>Login to register as a player</h3>
                           <a href='login.php' class='btn btn-success'>Go To Login</a>";
                     } elseif ($_SESSION['userRoleId'] == 0) {
-                        echo "<h3>Ready to compete in the matches? Fill out the form Now!</h3>";
+                        echo "<h3 style='margin-top:30px;'   >Ready to compete in the matches? Fill out the form Now!</h3>";
                     } else {
                         echo "<h3>Welcome Admin!</h3>";
                     }
@@ -236,8 +236,6 @@ ob_start();
                                     } else {
                                         echo "distinct";
                                     }
-
-
                                     ?>">
 
                             <td>

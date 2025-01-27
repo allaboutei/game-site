@@ -41,6 +41,9 @@ ob_start();
         </div>
         <br>
         <div class="main">
+        <div class="headings">
+                    <h1>User Management</h1>
+                </div>
             <h2 class="txtw">User List</h2>
             <?php
             if (isset($_GET['deleteid'])) {

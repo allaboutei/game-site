@@ -51,7 +51,7 @@ ob_start();
         ?>
         <div class="main">
             <div class="backButtonContainer">
-                <button class="backButton" onclick="history.back()"><i class="fa-solid fa-circle-left"></i></button>
+                <a href="teamreg.php"><button class="backButton" ><i class="fa-solid fa-circle-left"></i></button></a>
             </div>
             <div class="allocateContainer">
                 <?php
@@ -187,8 +187,9 @@ ob_start();
                     ?>
                 </div>
             </div>
+            <h3>Recent Matches</h3>
             <div class="recentMatch">
-                <h3>Recent Matches</h3>
+                
                 <div class="recentCard">
                     <h4>#</h4>
                     <h4>Date</h4>

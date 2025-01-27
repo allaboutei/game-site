@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Abel&family=Anton&family=Exo:wght@400;700&family=Orbitron:wght@400;700&family=Rajdhani:wght@400;500;700&family=Roboto+Condensed:wght@400;700&family=Teko:wght@400;700&display=swap');
+
 body {
   font-family: 'Roboto Condensed', sans-serif;
   background-color: #0d1117; /* Dark background for gaming vibes */
@@ -246,6 +248,7 @@ td {
   transition: top 0.5s ease-in-out;
   /* Ensure this is set to the hidden position */
 }
+
 .fillBtn {
   color: white;
   border-radius: 5px;
@@ -253,13 +256,13 @@ td {
   height: 40px;
   background-color: gray;
   position: absolute;
-  top: 50px;
+  top: 10px;
   left: 0px;
 }
 .fa-scroll {
   font-size: 20px;
   position: absolute;
-  top: 60px;
+  top: 20px;
   left: 125px;
 }
 /* Drop down animation */
@@ -276,6 +279,7 @@ td {
 .footer-content {
   display: flex;
   flex-wrap: wrap;
+  position: sticky;
   justify-content: space-between;
   max-width: 1200px;
   width: 100%;
@@ -426,6 +430,7 @@ td {
   width: 100%; /* Occupies full width */
   height: 500px;
   overflow: hidden;
+  margin-top: 20px;
 }
 .slides {
   display: flex;
@@ -537,7 +542,7 @@ td {
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-
+text-align: center;
 }
 .icon {
   display: flex;
@@ -545,6 +550,11 @@ td {
   justify-content: center;
   text-align: center;
   width: 25%;
+}
+.icon p{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 /* News Page Expanded*/
 /* player page */
@@ -755,6 +765,10 @@ td {
 
   margin: 10px auto;
 }
+.tourDesc{
+  text-indent: 50px;
+  margin:0px 100px
+}
 /* tournament Page */
 /* Match page */
 .matchContainer {
@@ -824,7 +838,6 @@ td {
 }
 
 .recentMatch {
-  padding: 10px 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -833,7 +846,7 @@ td {
 }
 .recentCard {
   padding: 10px;
-  margin: 20px 10px;
+  margin: 10px 0px;
   background-color: rgb(15, 25, 35);
   display: flex;
   flex-direction: row;
@@ -851,6 +864,10 @@ td {
   justify-content: space-evenly;
   align-items: center;
   width: 20%;
+}
+.recentCardScore img {
+  padding: 10px;
+  background-color: blanchedalmond;
 }
 /* Match page */
 /* user page */
@@ -928,6 +945,10 @@ td {
 
 .formGroup {
   margin-bottom: 15px;
+ 
+}
+.formGroup input{
+  width: 60%;
 }
 
 label {
@@ -955,7 +976,7 @@ label {
   cursor: pointer;
   color: black;
   border-radius: 5px;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease-in-out;
 }
 
 .btn-primary:hover {
@@ -1110,17 +1131,13 @@ body::-webkit-scrollbar {
   display: flex;
   justify-content: left; /* Align to the left */
   margin: 10px; /* Add some space around */
-    position: fixed;
-    top: 80px;
-    left: 10px;
-    z-index: 1000; /* Ensure it stays on top of other elements */
-
-
 }
 
+
+
 .backButton {
-  background-color: turquoise; /* Button color */
-  color: white; /* Text color */
+  background-color: #f0ad4e; /* Button color */
+  color: black; /* Text color */
   border: none; /* Remove default border */
   border-radius: 5px; /* Rounded corners */
   padding: 10px 20px; /* Button padding */
@@ -1131,7 +1148,8 @@ body::-webkit-scrollbar {
 }
 
 .backButton:hover {
-  background-color: darkcyan; /* Darker shade on hover */
+  color: white;
+  background-color: #ffc107; /* Darker shade on hover */
   transform: scale(1.05); /* Slight zoom on hover */
 }
 
@@ -1282,10 +1300,26 @@ body::-webkit-scrollbar {
   margin: 0px;
   width: 40%;
 }
-
+.tourInfo p{
+  font-size: 14px;
+}
+.tourDesc{
+  margin:0px 20px;
+}
 /* players */
+.playerCard{
+  width: 100%;
+}
 .playerInfo{
-  width: 30%;
+  padding: 5px;
+  margin: 5px;
+  width: 45%;
+}
+.team{
+  width: 100%;
+}
+.team h4,h5{
+font-size: large;
 }
 /* match */
 .matchDesc{
@@ -1303,6 +1337,102 @@ body::-webkit-scrollbar {
 }
 .btn{
   padding: 5px 10px;
+}
+
+/* profile */
+.profileInfo{
+  margin-bottom: 10px;
+  flex-direction: column;
+}
+.profileCard{
+ margin: 20px 0px;
+  width: 90%;
+}
+.Info{
+  padding: 0px 5px;
+}
+/* match */
+.matchContainer{
+  padding: 0;
+  width: 100%;
+}
+.matchCard{
+  height: 320px;
+  padding: 0px 5px;
+  justify-content: center;
+}
+.matchTeam{
+width: 30%;
+}
+.matchInfo{
+  width: 100%;
+  height: 100%;
+}
+.matchInfo{
+  font-size: 15px;
+width: 100%;
+}
+
+.matchScore{
+  width: 50%;
+}
+.matchDesc{
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* news */
+.newsCard {
+  border-bottom: 3px solid grey;
+  position: relative;
+  margin: 10px;
+  width: 300px;
+  height: 200px;
+  /* background-color: red; */
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+/* login and signin */
+.formGroup input{
+  width: 80%;
+}
+/* allocate player */
+.recentMatch{
+  width: 100%;
+ padding: 0px;
+}
+.recentCard{
+  padding: 10px 0px;
+  justify-content: center;
+}
+
+.recentCard span,
+.recentCard h4 {
+  text-wrap: wrap;
+ text-align: center;
+ font-size: 1rem;
+  width: fit-content;
+  margin: 0px 5px; 
+}
+.recentCardScore  {
+  flex-direction: column;
+} 
+.recentCardScore h4{
+  text-wrap: wrap;
+ text-align: center;
+ font-size: 1rem;
+  width: fit-content;
+  margin: 0px 5px; 
+}
+.recentCardScore img{
+  padding: 2px;
+  width: 50px;
+  height: 50px;
+ 
 }
 /* footer */
   .footer-content {
@@ -1325,5 +1455,59 @@ body::-webkit-scrollbar {
   .Form {
     width: 100%;
   }
+
+  /* globals */
+  .table{
+width: 100%;
+  }
+  
+  table,
+th,
+td {
+  padding: 0px;
+  text-wrap: warp;
+  width: fit-content;
+  height: fit-content;
+  border: 3px solid #f0ad4e;
+  border-collapse: collapse;
+}
+.feed {
+  padding: 10px;
+}
+
+.fillBtn {
+  font-size: 15px;
+  color: white;
+  border-radius: 5px;
+  width: 100px;
+  height: 40px;
+  background-color: gray;
+  position: absolute;
+  top: 10px;
+  left: 0px;
+}
+.fa-scroll {
+  font-size: 20px;
+  position: absolute;
+  top: 20px;
+  left: 100px;
+}
+.content {
+  position: relative;
+  padding: 5px;
+  margin: 0 auto;
+  width: 90%;
+  margin-top: 50px;
+}
+.register {
+  padding: 0px 5px;
+ 
+  justify-content: space-between;
+  width: 100%;
+  height: 50px;
+}
+.labelTag {
+  font-size: 15px;
+}
 }
 /* Responsiveness */

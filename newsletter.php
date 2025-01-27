@@ -16,64 +16,63 @@ ob_start(); ?>
 
     <script src="https://kit.fontawesome.com/cf47e7251d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="favicon.ico" type="image/x-icon"> 
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 
 <body>
     <div class="container">
         <div class="header">
             <?php
-            include ("header.php");
+            include("header.php");
             ?>
         </div>
         <div class="main">
-        <?php
-                if (isset($_POST["btnUpload"])) {
+            <?php
+            if (isset($_POST["btnUpload"])) {
 
-                    $newshead = htmlspecialchars($_POST["nheading"]);
-                    $newsbody = htmlspecialchars($_POST["nbody"]);
+                $newshead = htmlspecialchars($_POST["nheading"]);
+                $newsbody = htmlspecialchars($_POST["nbody"]);
 
-                    if (isset($_FILES["nfile"]) && $_FILES["nfile"]["error"] == 0) {
-                        $filename = $_FILES["nfile"]["name"];
-                        $filepatch = $_FILES["nfile"]["tmp_name"];
-                    } else {
-                        $filename = "";
-                    }
-                    $sql = "INSERT INTO tbl_news(newsId,newsHeading,newsBody,newsFootage) VALUES (NULL,'$newshead','$newsbody','$filename')";
-                    if ($conn->query($sql) == True) {
-                        echo "News Inserted Successfully";
-                        move_uploaded_file($filepatch, "uploadfiles/" . $filename);
-                        header("location:newsletter.php");
-                        exit();
-                    }
+                if (isset($_FILES["nfile"]) && $_FILES["nfile"]["error"] == 0) {
+                    $filename = $_FILES["nfile"]["name"];
+                    $filepatch = $_FILES["nfile"]["tmp_name"];
+                } else {
+                    $filename = "";
                 }
+                $sql = "INSERT INTO tbl_news(newsId,newsHeading,newsBody,newsFootage) VALUES (NULL,'$newshead','$newsbody','$filename')";
+                if ($conn->query($sql) == True) {
+                    echo "News Inserted Successfully";
+                    move_uploaded_file($filepatch, "uploadfiles/" . $filename);
+                    header("location:newsletter.php");
+                    exit();
+                }
+            }
 
 
 
-                ?>
+            ?>
             <div class="formBtnModule <?php if (isset($_SESSION['userRoleId'])) {
-                if ($_SESSION['userRoleId'] == 0) {
-                    echo "blockContent";
-                } elseif ($_SESSION['userRoleId'] == 1) {
-                    echo "";
-                }
-            } else {
-                echo "blockContent";
-            } ?> ">
+                                            if ($_SESSION['userRoleId'] == 0) {
+                                                echo "blockContent";
+                                            } elseif ($_SESSION['userRoleId'] == 1) {
+                                                echo "";
+                                            }
+                                        } else {
+                                            echo "blockContent";
+                                        } ?> ">
                 <button class="fillForm fillBtn">Fill Form </button>
                 <i class="fa-solid fa-scroll"></i>
             </div>
             <br>
             <div class="content <?php if (isset($_SESSION['userRoleId'])) {
-                if ($_SESSION['userRoleId'] == 0) {
-                    echo "blockContent";
-                } elseif ($_SESSION['userRoleId'] == 1) {
-                    echo "";
-                }
-
-            } else {
-                echo "blockContent";
-            } ?>">
+                                    if ($_SESSION['userRoleId'] == 0) {
+                                        echo "blockContent";
+                                    } elseif ($_SESSION['userRoleId'] == 1) {
+                                        echo "";
+                                    }
+                                } else {
+                                    echo "blockContent";
+                                } ?>">
                 <div class="register heading">
                     <h4>Upload the news</h4>
                 </div>
@@ -95,24 +94,26 @@ ob_start(); ?>
                         <input name="btnUpload" class="btn btn-primary" type="submit" value="Upload News">
                     </div>
                 </form>
-               
-                </div>
 
-                <div class="feed">
-<div class="headings">
-    <h1>NEWS</h1>
-</div>
-                    <div class="newsContainer">
-                        <?php 
-                         
-                         $sql = "SELECT * FROM tbl_news";
-                         $result = $conn->query($sql);
-                         if ($result->num_rows > 0) {
-                             while ($row = $result->fetch_assoc()) {
+            </div>
 
-                            ?>
-                            <a href="<?php echo './newsdetails.php?id=' . $row["newsId"] ?>">
-                                <div id="" class="newsCard">
+            <div class="feed">
+
+                <div class="newsContainer">
+                    <div class="headings">
+                        <h1>NEWS</h1>
+                    </div>
+                    <?php
+
+                    $sql = "SELECT * FROM tbl_news";
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+
+                    ?>
+                            <div id="" class="newsCard">
+                                <a href="<?php echo './newsdetails.php?id=' . $row["newsId"] ?>">
+
                                     <img class="newsImg" src="uploadfiles/<?php echo $row["newsFootage"] ?>"
                                         alt="Cannot Load Image">
                                     <div class="newsDetail">
@@ -120,29 +121,28 @@ ob_start(); ?>
                                         <h4> <?php echo $row["newsHeading"] ?> </h4>
                                         <p><?php echo $row["newsBody"] ?></p>
                                     </div>
-                                </div>
-                            </a>
 
+                                </a>
+                            </div>
                         <?php } ?>
-                    </div>
-
-                   
                 </div>
-            
-                <?php
-                }
-                else {
-                    echo "<div class='newsContainer'>
+
+
+            </div>
+
+        <?php
+                    } else {
+                        echo "<div class='newsContainer'>
                 <h4 style='color:black;'>No News Available</h4>
             </div>";
-                }
-                ?>
-                <br>
+                    }
+        ?>
+        <br>
         </div>
-        
+
         <div class="footer">
             <?php
-            include ("footer.php");
+            include("footer.php");
             ?>
         </div>
     </div>

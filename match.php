@@ -368,7 +368,7 @@ ob_start();
                                     $r = $conn->query($ssql);
                                     $row1 = $r->fetch_assoc();
                                     ?>
-                                    <img class="whImg" src="uploadfiles/<?php echo $row1['teamImage']; ?>" alt="Image Not Found">
+                                    <a href="allocate_player.php?id=<?php echo $team1name ?>"><img class="whImg" src="uploadfiles/<?php echo $row1['teamImage']; ?>" alt="Image Not Found"></a>
                                     <br>
                                     <?php
                                     echo isset($row1['teamName']) ? $row1['teamName'] : "Team Not Found" ?>
@@ -398,7 +398,7 @@ ob_start();
                                     ?>
                                         <div class="matchScore">
                                             <h4><?php echo isset($row1['team1score']) ? $row1['team1score'] : "TBD"; ?></h4>
-                                            <h4>VS</h4>
+                                            <h4>-</h4>
                                             <h4><?php echo isset($row1['team2score']) ? $row1['team2score'] : "TBD"; ?></h4>
                                         </div>
                                     <?php
@@ -454,7 +454,7 @@ ob_start();
                                     $r = $conn->query($ssql);
                                     $row1 = $r->fetch_assoc();
                                     ?>
-                                    <img class="whImg" src="uploadfiles/<?php echo $row1['teamImage']; ?>" alt="Image Not Found">
+                                   <a href="allocate_player.php?id=<?php echo $team2name ?>"> <img class="whImg" src="uploadfiles/<?php echo $row1['teamImage']; ?>" alt="Image Not Found"></a>
                                     <br>
                                     <?php
                                     echo isset($row1['teamName']) ? $row1['teamName'] : "Team Not Found" ?>

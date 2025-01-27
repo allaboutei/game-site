@@ -1,20 +1,22 @@
 <?php $currentPage = 'profile';
-    include_once "config/regdbconnect.php";
-    session_start();
-    ob_start(); ?>
+include_once "config/regdbconnect.php";
+session_start();
+ob_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/cf47e7251d.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="favicon.ico" type="image/x-icon"> 
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <title>Profile</title>
 </head>
+
 <body>
     <div class="container">
         <div class="header">
@@ -26,7 +28,7 @@
             $sql = "SELECT * FROM tbl_user WHERE userId='$id'";
             $result = $conn->query($sql);
             $row = $result->fetch_assoc();
-            $uid=$row['userId'];
+            $uid = $row['userId'];
         }
         if (isset($_POST['btnAccept'])) {
             $pid = $_POST['playerId'];
@@ -109,29 +111,33 @@
                 </div>
             </div>
             <div class="playerStatus">
-              
+
                 <h3>Pending Team Invitations</h3>
                 <?php
-                $sql = "SELECT * FROM tbl_allocate ta JOIN tbl_player tp ON ta.playerId=tp.playerId WHERE ta.playerId='$playerid' AND ta.status='pending'";
-                $result = $conn->query($sql);
-                if ($result->num_rows > 0) {
-                    $row = $result->fetch_assoc();
-                    $tid=$row['teamId'];
+                if (isset($playerid)) {
+                    $sql = "SELECT * FROM tbl_allocate ta JOIN tbl_player tp ON ta.playerId=tp.playerId WHERE ta.playerId='$playerid' AND ta.status='pending'";
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {
+                        $row = $result->fetch_assoc();
+                        $tid = $row['teamId'];
                 ?>
-                    <h4> From : <?php 
-                    $sql1="SELECT teamName FROM tbl_team WHERE teamId='$tid'";
-                    $result1=$conn->query($sql1);
-                    $row1=$result1->fetch_assoc();
-                    echo $row1['teamName']; ?></h4>
-                    <h4>Invited At : <?php echo date("g:i A l: F d, Y", strtotime($row["joinedat"])); ?></h4>
-                    <form action="#" method="POST">
-                        <input type="hidden" name="playerId" value="<?php echo $row['playerId']; ?>">
-                        <input type="hidden" name="allocateId" value="<?php echo $row['id']; ?>">
-                        <input type="hidden" name="userId" value="<?php echo $uid ?>">
-                        <input class="btn btn-success" type="submit" name="btnAccept" value="Accept">
-                        <input class="btn btn-danger" type="submit" name="btnReject" value="Reject">
-                    </form>
+                        <h4> From : <?php
+                                    $sql1 = "SELECT teamName FROM tbl_team WHERE teamId='$tid'";
+                                    $result1 = $conn->query($sql1);
+                                    $row1 = $result1->fetch_assoc();
+                                    echo $row1['teamName']; ?></h4>
+                        <h4>Invited At : <?php echo date("g:i A l: F d, Y", strtotime($row["joinedat"])); ?></h4>
+                        <form action="#" method="POST">
+                            <input type="hidden" name="playerId" value="<?php echo $row['playerId']; ?>">
+                            <input type="hidden" name="allocateId" value="<?php echo $row['id']; ?>">
+                            <input type="hidden" name="userId" value="<?php echo $uid ?>">
+                            <input class="btn btn-success" type="submit" name="btnAccept" value="Accept">
+                            <input class="btn btn-danger" type="submit" name="btnReject" value="Reject">
+                        </form>
                 <?php
+                    } else {
+                        echo "There Is No Pending Invitations";
+                    }
                 } else {
                     echo "There Is No Pending Invitations";
                 }
@@ -143,4 +149,5 @@
             <?php include("footer.php"); ?>
         </div>
 </body>
+
 </html>

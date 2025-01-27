@@ -60,7 +60,7 @@ if (isset($_POST['btnReport'])) {
         ?>
         <div class="main">
         <div class="backButtonContainer">
-                <button class="backButton" onclick="history.back()"><i class="fa-solid fa-circle-left"></i></button>
+        <a href="newsletter.php"><button class="backButton" ><i class="fa-solid fa-circle-left"></i></button></a>
             </div>
             <div class="newsExpandedContainer">
                 <?php

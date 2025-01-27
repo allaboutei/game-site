@@ -152,8 +152,11 @@ if (isset($_SESSION['isCaptain'])) {
                     $row = $result->fetch_assoc();
                     echo "<h3>Welcome Back Captain</h3>";
                 ?>
-                    <p> Click Here to Check your Team Details <a href="allocate_player.php?id=<?php echo $row["teamId"]; ?>"><?php echo $row['teamName']; ?></a></p>
+                    <p> Click Here to Check your Team Details </p>
+                    <a href="allocate_player.php?id=<?php echo $row["teamId"]; ?>">
+                        <button class="btn btn-secondary" ><?php echo $row['teamName']; ?></button></a>
                     <img class="whImg" src="uploadfiles/<?php echo $row['teamImage'] ?>" alt="">
+                    <br>
             <?php
 
                 } else {
@@ -241,7 +244,7 @@ if (isset($_SESSION['isCaptain'])) {
         setInterval(() => {
             currentIndex = (currentIndex + 1) % images.length;
             goToSlide(currentIndex);
-        }, 3000);
+        }, 5000);
 
         // Initialize slider
         goToSlide(0);

@@ -45,7 +45,7 @@ ob_start();
                             <label for="upw">Password</label>
                             <input id="upw" name="upw" type="password" class="form-control" required>
                         </div>
-                        <div class="formGroup">
+                        <div class="">
                             <input name="btnLogin" class="btn btn-primary" type="submit" value="Login">
                         </div>
                     </form>

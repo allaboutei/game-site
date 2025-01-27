@@ -41,7 +41,7 @@ session_start();
             }
             ?>
            <div class="backButtonContainer">
-                <button class="backButton" onclick="history.back()"><i class="fa-solid fa-circle-left"></i></button>
+           <a href="tournament.php"><button class="backButton" ><i class="fa-solid fa-circle-left"></i></button></a>
             </div>
             <div class="allocate_team">
                 <h5><?php echo $row['tourName'] ?></h5>
@@ -51,7 +51,7 @@ session_start();
 
 
             </div>
-            <p style="text-indent: 50px;margin:0px 100px" ><?php echo $row['tourDesc'] ?></p>
+            <p class="tourDesc"><?php echo $row['tourDesc'] ?></p>
             <hr>
             <h4>Invited Teams</h4>
             <div style="margin: 0 auto; display: flex; justify-content: center;">

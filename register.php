@@ -54,12 +54,13 @@ ob_start();
                         <input name="cpassword" type="password" class="form-control" placeholder="Max 20 characters" required>
                     </div>
                     <br>
-                    <div class="formGroup">
+                    <div class="">
                         <input name="btnCreate" class="btn btn-primary" type="submit" value="Create">
                     </div>
                 </form>
                 <div class="term">
-<p>Check Our&nbsp;<a href="terms.php" target="_blank"  > Terms and Conditions </a>&nbsp; for how your data is being handled </p>
+<p>Check Out our terms and conditions for how your data is being handled</p>
+<a href="terms.php" target="_blank"  > Terms and Conditions </a>
                    
                 </div>
                 <div class="createLogin">
