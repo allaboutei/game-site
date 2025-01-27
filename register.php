@@ -69,17 +69,9 @@ ob_start();
                 </div>
             </div>
 </div>
-           
-
-
         </div>
         <?php include("footer.php"); ?>
     </div>
-
     <?php ob_end_flush(); ?>
-
-    
-
 </body>
-
 </html>
