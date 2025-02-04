@@ -89,7 +89,7 @@ ob_start();
                     if ($conn->query($sqlInsert) === true) {
                         echo "<div class='loader mg0Auto'></div>";
                         header("refresh:1,url=playerreg.php");
-                        echo "Record inserted successfully";
+                        echo "Successfully Registered As Player ";
                         exit();
                     } else {
                         echo "<div>Register error!</div>";

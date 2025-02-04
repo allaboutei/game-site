@@ -15,7 +15,7 @@ if (isset($_GET['btnAssign'])) {
 
         $conn->query(($sql1));
         echo "The team is successfully assigned to this tournament";
-        header("Location: ../allocate_team.php?id=$tourid");
+        header("Location:../allocate_team.php?id=$tourid");
     } else {
 
         echo "ERROR";

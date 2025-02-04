@@ -34,11 +34,16 @@ if (isset($_POST["btnCreate"])) {
         $sql = "SELECT * FROM tbl_user WHERE userName='$createname' AND userPassword=md5('$createpassword') AND status='1'";
         $result = $conn->query($sql);
 
-        session_start();
-        $row = $result->fetch_assoc();
-        $authType = $row['userRoleId'];
-        $userid = $row['userId'];
-        $email=$row['userEmail'];
+        if ($result) {
+            session_start();
+            $row = $result->fetch_assoc();
+            $authType = $row['userRoleId'];
+            $userid = $row['userId'];
+            $email=$row['userEmail'];
+        } else {
+            echo "Error: ";
+            exit();
+        }
 
    
         if ($authType == 0) {
@@ -62,7 +67,8 @@ if (isset($_POST["btnCreate"])) {
             exit();
         }
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "Account Creation Error: ";
+        header("location:register.php");
     }
 }
 
