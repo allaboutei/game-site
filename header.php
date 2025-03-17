@@ -3,14 +3,14 @@
   <div class="hamburger line2"></div>
   <div class="hamburger line3"></div>
 </div>
-<a class="logo" href="index.php">
+<a class="logo" href="dispelshome.php">
   <img src="images/DISPELS.jpg" alt="DISPEL Logo">
 </a>
 <nav class="navibar">
   <ul>
     <?php if (isset($_SESSION['userRoleId']) && $_SESSION['userRoleId'] == 1) {
     ?>
-      <li><a href="index.php" class="<?php echo $currentPage === 'admin' ? 'active' : ''; ?>">Dashboard</a></li>
+      <li><a href="dispelshome.php" class="<?php echo $currentPage === 'admin' ? 'active' : ''; ?>">Dashboard</a></li>
     <?php
     } ?>
 

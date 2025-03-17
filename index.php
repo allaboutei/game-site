@@ -1,254 +1,234 @@
-<?php
-$currentPage = 'index';
-include_once "config/regdbconnect.php";
-session_start();
-ob_start();
-if (isset($_SESSION['isCaptain'])) {
-    $authCap = $_SESSION['isCaptain'];
-} else {
-    echo "";
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 
-
 <head>
+    <?php
+    include_once("config/regdbconnect.php"); ?>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>My Portfolio</title>
+    <style>
+        * {
+            font-family: 'Century Gothic', sans-serif;
+        }
 
-    <script src="https://kit.fontawesome.com/cf47e7251d.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
 
+        h1,
+        h2,
+        h3 {
+            font-weight: 600;
+            margin: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #fff;
+            padding: 60px 0;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            animation: fadeInDown 1s ease-in-out;
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        /* Container */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 40px auto;
+        }
+
+        /* Sections */
+        .about,
+        .projects,
+        .contact {
+            background: #fff;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .about:hover,
+        .projects:hover,
+        .contact:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .about h2,
+        .projects h2,
+        .contact h2 {
+            font-size: 2em;
+            color: #2575fc;
+            margin-bottom: 20px;
+        }
+
+        .about p {
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        /* Projects Section */
+        .projects .project {
+            margin-bottom: 25px;
+            padding: 20px;
+            border-left: 4px solid #2575fc;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .projects .project:hover {
+            transform: translateX(10px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .projects .project h3 {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .projects .project p {
+            font-size: 1em;
+            color: #666;
+        }
+
+        /* Contact Section */
+        .contact a {
+            color: #2575fc;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .contact a:hover {
+            color: #6a11cb;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 60px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 
 <body>
+
+    <header>
+        <h1>Khant Si Thu</h1>
+        <p>Web Developer & IT Support Techanician</p>
+        
+    </header>
+   
+    
     <div class="container">
-        <div class="header">
+        <section class="about">
+            <h2>About Me</h2>
+            <p style="text-indent: 10%;">Hello! I'm Khant Si Thu, a person who is very fond of computer systems, digital logics and eager to learn fresh knowledge and collecting experiences related to programming, installation and troubleshooting of computer hardware and software. With over 2 years of experience in web development and almost a year in IT support techanician. I have a hobby in website development and database management systems.</p>
+        </section>
+
+        <section class="projects">
+            <h2>Projects</h2>
             <?php
-            include("header.php");
+            $sql = "SELECT * FROM tbl_project";
+            $result = $conn->query($sql);
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
             ?>
-        </div>
-
-        <div class="main ">
-
-            <br>
-
+                    <div class="project">
+                        <h3>Project <?php echo $row['id'] ?>: <?php echo $row['name'] ?></h3>
+                        <p><?php echo $row['description'] ?></p>
+                        <?php if(!isset($row['hostinglink'])){
+?>
+<p>Hosted at : <?php echo $row['hostinglink'] ?></p>
+<?php
+                        } 
+                     else{
+?>
+<p>Github-Link : <?php echo $row['gitlink'] ?></p>
+<?php
+                     }   
+                        ?>
+                    </div>
             <?php
-
-            if (!isset($_SESSION['userRoleId'])) {
-            ?>
-<h3>Welcome To DISPELS eSports Web Platform</h3>
-<a href='login.php' class='btn btn-success'>Go To Login</a>
-                <div class="slider" id="slider">
-                    <div class="slides"></div>
-                    <div id="navigation-manual" class="navigation-manual"></div>
-                </div>
-                
-
-            <?php
-            } elseif (isset($_SESSION['userRoleId']) && $_SESSION['userRoleId'] == 1) {
-            ?>
-                <h3>Welcome Admin</h3>
-
-                <div class="homePage">
-                    <div class="mainPanel">
-                        <div class="panelCard">
-                            <h4>News</h4>
-                            <?php
-                            $sql = "SELECT COUNT(newsId) FROM tbl_news";
-                            $resultNews = $conn->query($sql);
-                            $rowNews = $resultNews->fetch_assoc();
-                            ?>
-                            <p><strong>Total News : <?php echo $rowNews['COUNT(newsId)']; ?></strong></p>
-                            <a href="newsletter.php" class="btn btn-primary">Manage News</a>
-                        </div>
-                        <img src="images/DISPELS.jpg" alt="Image Not Found">
-                    </div>
-                    <div class="mainPanel">
-                        <div class="panelCard">
-                            <h4>Teams</h4>
-                            <?php
-                            $sql = "SELECT COUNT(teamId) FROM tbl_team";
-                            $resultNews = $conn->query($sql);
-                            $rowNews = $resultNews->fetch_assoc();
-                            ?>
-                            <p><strong>Total Teams : <?php echo $rowNews['COUNT(teamId)']; ?></strong></p>
-                            <a href="teamreg.php" class="btn btn-primary">Manage Teams</a>
-                        </div>
-                        <img src="images/DISPELS.jpg" alt="Image Not Found">
-                    </div>
-
-                    <div class="mainPanel">
-                        <div class="panelCard">
-                            <h4>Tournaments</h4>
-                            <?php
-                            $sql = "SELECT COUNT(tourId) FROM tbl_tour";
-                            $resultNews = $conn->query($sql);
-                            $rowNews = $resultNews->fetch_assoc();
-                            ?>
-                            <p><strong>Tournaments created : <?php echo $rowNews['COUNT(tourId)']; ?></strong></p>
-                            <a href="tournament.php" class="btn btn-primary">Manage Tournaments</a>
-                        </div>
-                        <img src="images/DISPELS.jpg" alt="Image Not Found">
-                    </div>
-                    <div class="mainPanel">
-                        <div class="panelCard">
-                            <h4>Players</h4>
-                            <?php
-                            $sql = "SELECT COUNT(playerId) FROM tbl_player";
-                            $resultNews = $conn->query($sql);
-                            $rowNews = $resultNews->fetch_assoc();
-                            ?>
-                            <p><strong>Total Players : <?php echo $rowNews['COUNT(playerId)']; ?></strong></p>
-                            <a href="playerreg.php" class="btn btn-primary">Manage Players</a>
-                        </div>
-                        <img src="images/DISPELS.jpg" alt="Image Not Found">
-                    </div>
-                    <div class="mainPanel">
-                        <div class="panelCard">
-                            <h4>Users</h4>
-                            <?php
-                            $sql = "SELECT COUNT(userId) FROM tbl_user";
-                            $resultNews = $conn->query($sql);
-                            $rowNews = $resultNews->fetch_assoc();
-                            ?>
-                            <p><strong>Registered Users : <?php echo $rowNews['COUNT(userId)']; ?></strong></p>
-                            <a href="userlist.php" class="btn btn-primary">Manage Users</a>
-                        </div>
-                        <img src="images/DISPELS.jpg" alt="Image Not Found">
-                    </div>
-                    <div class="mainPanel">
-                        <div class="panelCard">
-                            <h4>Matches</h4>
-                            <?php
-                            $sql = "SELECT COUNT(matchId) FROM tbl_match WHERE matchDate < CURDATE()";
-                            $resultNews = $conn->query($sql);
-                            $rowNews = $resultNews->fetch_assoc();
-                            ?>
-                            <p><strong>Match Completed : <?php echo $rowNews['COUNT(matchId)']; ?></strong></p>
-                            <a href="match.php" class="btn btn-primary">Manage Matches</a>
-                        </div>
-                        <img src="images/DISPELS.jpg" alt="Image Not Found">
-                    </div>
-                </div>
-            <?php
-            } else {
-            ?>
-                <div class="slider" id="slider">
-                    <div class="slides"></div>
-                    <div id="navigation-manual" class="navigation-manual"></div>
-                </div>
-                <?php
-                $uid = $_SESSION['userId'];
-                $sql = "SELECT tt.teamId,tt.teamName,tt.teamImage from tbl_team tt LEFT JOIN tbl_captain tc ON tt.teamId=tc.teamId  WHERE userId='$uid'";
-                $result = $conn->query($sql);
-
-                if ($result->num_rows > 0) {
-                    $row = $result->fetch_assoc();
-                    echo "<h3>Welcome Back Captain</h3>";
-                ?>
-                    <p> Click Here to Check your Team Details </p>
-                    <a href="allocate_player.php?id=<?php echo $row["teamId"]; ?>">
-                        <button class="btn btn-secondary" ><?php echo $row['teamName']; ?></button></a>
-                    <img class="whImg" src="uploadfiles/<?php echo $row['teamImage'] ?>" alt="">
-                    <br>
-            <?php
-
-                } else {
-                    echo "<h5>You are now part of the community</h5>";
                 }
             }
-
             ?>
 
 
-        </div>
+        </section>
 
-        <div class="footer">
-            <?php
-            include("footer.php");
-            ?>
-        </div>
+        <section class="contact">
+            <h2>Contact Me</h2>
+            <p>Email : <a href="mailto:john.doe@example.com">khantsithu.phoenix.kst@example.com</a>.</p>
+            <p>Phone No : +65 89105832</p>
+        </section>
     </div>
-    <?php
-    ob_end_flush();
-    ?>
-    <script>
-        const images = [{
-                src: "sliderImages/sliderimg1.jpg",
-                alt: "Slide 1",
-                link: "#"
-            }, {
-                src: "sliderImages/sliderimg2.jpg",
-                alt: "Slide 2",
-                link: "#"
-            },
-            {
-                src: "sliderImages/sliderimg3.png",
-                alt: "Slide 3",
-                link: "#"
-            },
-        ];
 
-        const slider = document.getElementById("slider");
-        const slidesContainer = slider.querySelector(".slides");
-        const navigationManual = document.getElementById("navigation-manual");
+    <footer>
+        <p>&copy; 2023 John Doe. All rights reserved.</p>
+    </footer>
 
-        // Add slides dynamically
-        images.forEach((image, index) => {
-            const slide = document.createElement("div");
-            slide.classList.add("slide");
-
-            // Wrap image in link if `link` exists
-            const imgWrapper = document.createElement(image.link ? "a" : "div");
-            if (image.link) imgWrapper.href = image.link;
-
-            const img = document.createElement("img");
-            img.src = image.src;
-            img.alt = image.alt;
-            imgWrapper.appendChild(img);
-
-            slide.appendChild(imgWrapper);
-            slidesContainer.appendChild(slide);
-
-            // Create navigation dots
-            const navBtn = document.createElement("div");
-            navBtn.classList.add("manual-btn");
-            navBtn.dataset.index = index;
-            navBtn.addEventListener("click", () => goToSlide(index));
-            navigationManual.appendChild(navBtn);
-        });
-
-        let currentIndex = 0;
-
-        // Function to navigate to a specific slide
-        function goToSlide(index) {
-            currentIndex = index;
-            slidesContainer.style.transform = `translateX(-${index * 100}%)`;
-            updateDots();
-        }
-
-        // Update active dot
-        function updateDots() {
-            navigationManual.querySelectorAll(".manual-btn").forEach((btn, idx) => {
-                btn.classList.toggle("active", idx === currentIndex);
-            });
-        }
-
-        // Auto-slide functionality
-        setInterval(() => {
-            currentIndex = (currentIndex + 1) % images.length;
-            goToSlide(currentIndex);
-        }, 5000);
-
-        // Initialize slider
-        goToSlide(0);
-    </script>
 </body>
 
 </html>

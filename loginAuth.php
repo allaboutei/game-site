@@ -67,7 +67,7 @@ if (isset($_POST["btnCreate"])) {
             exit();
         }
     } else {
-        echo "Account Creation Error: ";
+         $_SESSION['cerrors']="Account Creation Error";
         header("location:register.php");
     }
 }
@@ -93,7 +93,7 @@ if ($result->num_rows > 0) {
         $_SESSION['userId'] = $userid;
         $_SESSION['role'] = "user";
         $_SESSION['userEmail'] = $email;
-        header("location:index.php");
+        header("location:dispelshome.php");
         exit();
     } else {
         $_SESSION['userName'] = $name;
@@ -101,7 +101,7 @@ if ($result->num_rows > 0) {
         $_SESSION['userId'] = $userid;
         $_SESSION['role'] = "admin";
         $_SESSION['userEmail'] = $email;
-        header("location:index.php");
+        header("location:dispelshome.php");
         exit();
     }
 } else {

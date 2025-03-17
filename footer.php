@@ -1,5 +1,5 @@
 
-  <div class="footer-content">
+  <div class="flex flex-row">
     <!-- About Section -->
     <div class="footer-about">
       <h4>About DISPEL eSports</h4>
