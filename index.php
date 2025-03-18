@@ -8,18 +8,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Portfolio</title>
     <style>
-        * {
-            font-family: 'Century Gothic', sans-serif;
-        }
+        
 
         /* General Styles */
         body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
+            font-family: 'Century Gothic', sans-serif;
+            margin: 0 auto;
             padding: 0;
             background-color: #f8f9fa;
             color: #333;
-            line-height: 1.6;
+            line-height: 1.5;
         }
 
         h1,
@@ -34,13 +32,22 @@
             color: inherit;
         }
 
-        /* Header */
-        header {
+       /* Header */
+       header {
             background: linear-gradient(135deg, #6a11cb, #2575fc);
             color: #fff;
-            padding: 60px 0;
+        padding: 20px 0px;
             text-align: center;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 4px solid #fff;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s ease-in-out;
         }
 
         header h1 {
@@ -54,7 +61,6 @@
             opacity: 0.9;
             animation: fadeInUp 1s ease-in-out;
         }
-
         /* Container */
         .container {
             width: 90%;
@@ -174,10 +180,10 @@
 
 <body>
 
-    <header>
+<header>
+        <img src="images/Profile_pic.jpg" alt="Profile Image" class="profile-image">
         <h1>Khant Si Thu</h1>
         <p>Web Developer & IT Support Techanician</p>
-        
     </header>
    
     
@@ -198,14 +204,14 @@
                     <div class="project">
                         <h3>Project <?php echo $row['id'] ?>: <?php echo $row['name'] ?></h3>
                         <p><?php echo $row['description'] ?></p>
-                        <?php if(!isset($row['hostinglink'])){
+                        <?php if(isset($row['hostinglink'])){
 ?>
-<p>Hosted at : <?php echo $row['hostinglink'] ?></p>
+<p>Hosted at : <a style="color: #2575fc;" href="<?php echo $row['hostinglink']; ?>"><?php echo $row['hostinglink']; ?></a></p>
 <?php
                         } 
                      else{
 ?>
-<p>Github-Link : <?php echo $row['gitlink'] ?></p>
+<p>Github Link : <a style="color: #2575fc;" href="<?php echo $row['gitlink']; ?>"><?php echo $row['gitlink']; ?></a></p>
 <?php
                      }   
                         ?>
@@ -219,14 +225,14 @@
         </section>
 
         <section class="contact">
-            <h2>Contact Me</h2>
-            <p>Email : <a href="mailto:john.doe@example.com">khantsithu.phoenix.kst@example.com</a>.</p>
+            <h2>Contact Iformation</h2>
+            <p>Email : <a href="mailto:john.doe@example.com">khantsithu.phoenix.kst@gmail.com</a>.</p>
             <p>Phone No : +65 89105832</p>
         </section>
     </div>
 
     <footer>
-        <p>&copy; 2023 John Doe. All rights reserved.</p>
+        <p>&copy; 2023 Khant Si Thu. All rights reserved.</p>
     </footer>
 
 </body>
